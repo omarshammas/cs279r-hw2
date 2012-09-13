@@ -2,5 +2,5 @@ Command Maps
 ============
 
 Authors:
-Omar Shammas
-Tunde Agboola
+*Omar Shammas
+*Tunde Agboola
