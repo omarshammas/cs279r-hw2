@@ -1,4 +1,9 @@
 CommandMaps::Application.routes.draw do
+  get "staticpages/home"
+  get "/thank_you" => "staticpages#thank_you", as: :thank_you
+
+  root :to => "staticpages#home"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
