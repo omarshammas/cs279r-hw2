@@ -1,4 +1,10 @@
 CommandMaps::Application.routes.draw do
+  get "experiment/begin"
+
+  get "experiment/thank_you"
+
+  get "experiment/familiar"
+
   get "staticpages/home"
   get "/thank_you" => "staticpages#thank_you", as: :thank_you
 
