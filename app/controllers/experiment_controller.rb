@@ -1,4 +1,6 @@
 class ExperimentController < ApplicationController
+  layout "office"
+
   def begin
   end
 

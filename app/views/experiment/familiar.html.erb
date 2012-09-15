@@ -1,47 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Roger Pincombe's Ribbon Test</title>
-	<link href="/assets/ribbon/ribbon.css" rel="stylesheet" type="text/css" />
-	<link href="/assets/ribbon/soft_button.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/assets/ribbon/ribbon.js"></script>
-	<script type="text/javascript" src="/assets/ribbon/jquery.tooltip.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#ribbon').ribbon();
-			
-			$('#enable-btn').click(function() {
-				$('#del-table-btn').enable();
-				$('#del-page-btn').enable();
-				$('#save-btn').enable();
-				$('#other-btn-2').enable();
-				
-				$('#enable-btn').hide();
-				$('#disable-btn').show();	
-			});
-			$('#disable-btn').click(function() {
-				$('#del-table-btn').disable();
-				$('#del-page-btn').disable();
-				$('#save-btn').disable();
-				$('#other-btn-2').disable();
-				
-				$('#disable-btn').hide();
-				$('#enable-btn').show();	
-			});
-			
-			$('.ribbon-button').click(function() {
-				if (this.isEnabled()) {
-					alert($(this).attr('id') + ' clicked');
-				}
-			});
-		});
-	</script>
 
-</head>
-<body bgcolor="#c9cdd2">
 	<div id="ribbon">
-		<span class="ribbon-window-title"><!-- Ribbon App Test --></span>
+		<span class="ribbon-window-title">Ribbon App Test</span>
 		<div class="ribbon-tab file" id="file-tab">
 			<span class="ribbon-title">File</span>
 			<div class="ribbon-backstage">
@@ -176,5 +135,3 @@ Nulla rhoncus iaculis lorem, venenatis lacinia turpis malesuada in. Curabitur qu
 <p>
 Donec eros diam, ornare eu aliquam ac, sodales a lacus. Aenean congue viverra mollis. Nullam dictum justo sed tellus dignissim non tempus magna aliquet. Ut imperdiet mi tortor, et commodo turpis. Vivamus nisl ligula, pulvinar in semper ac, dictum vitae enim. Cras tincidunt tempus ipsum, nec venenatis nibh faucibus id. Phasellus massa urna, faucibus id auctor et, posuere ac nunc. Duis pulvinar arcu in nisl ultricies quis congue nisi ultrices. Morbi quis tellus lacus, non viverra sem. Fusce vel mattis diam. Nunc vehicula libero sollicitudin metus dapibus laoreet. Vivamus sollicitudin malesuada gravida. Phasellus eget mi ligula, nec pellentesque magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae tempus enim. Morbi at nisl sed odio ullamcorper ullamcorper. Vestibulum turpis libero, dignissim sit amet pulvinar ut, cursus vitae mauris. Sed consectetur nisi vitae nunc egestas et consequat arcu fringilla.
 </p></div>
-</body>
-</html>
