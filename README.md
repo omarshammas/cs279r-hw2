@@ -13,7 +13,7 @@ This RoR app is deployed on heroku.
 * Production - commandmaps.heroku.com
 * Staging - commandmapsstaging.heroku.com
 
-###Experiment Design
+###Experiment Design:
 
 Each task begins by clicking a "next" button in the center of the screen (difficult to center exactly because we don't know the dimensions of the turks computer). Timer starts when the subject is presented with the name and icon for a target (it may be presented as part of the doc, or in a sidebar). Incorrect selections will produce some sort of feedback (maybe a beep, or some banner).
 
