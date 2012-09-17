@@ -30,7 +30,7 @@ class ExperimentController < ApplicationController
     redirect_to task_url
   end
 
-  def intermediate     
+  def intermediate 
   end
 
   def task
@@ -42,7 +42,7 @@ class ExperimentController < ApplicationController
 
   def task_complete
 
-    return redirect_to instructions_url, notice: "It worked #{params[:time]} s, and #{params[:errors]} errors."
+    return redirect_to intermediate_url, notice: "Time to complete #{params[:time]} s with #{params[:errors]} errors."
 
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
