@@ -1,7 +1,8 @@
 CommandMaps::Application.routes.draw do
 
   get "/" => "experiment#home", as: :begin
-  get "/begin" => "experiment#begin", as: :begin
+  get "/instructions" => "experiment#instructions", as: :instructions
+  post "/begin" => "experiment#begin", as: :begin
   get "/intermediate" => "experiment#intermediate", as: :intermediate
   get "/task" => "experiment#task", as: :task
   post "/task_complete" => "experiment#task_complete", as: :task_complete

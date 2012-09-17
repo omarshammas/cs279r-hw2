@@ -1,0 +1,38 @@
+<div id='begin' class='container'>
+
+	<div class='row'>
+
+		<div class='span8 offset2'>
+
+			<div class='hero-unit'>
+				<h1>Instructions</h1>
+			</div>
+
+			<% if flash[:notice] %>
+			    <div id="notice" class="alert alert-error"><%= flash[:notice] %></div>
+			<% end %>
+
+			<div class='row'>
+				<div class='span8'>
+					<p>You will be presented with an icon and its name. </p>
+					<p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<small> For example,  
+						<img src='/assets/ribbon/icons/normal/open-table.png' alt='Open Table icon' /> Open Table </small>
+					</p>
+					<p>Your task is to <strong>find the icon and <span class='text-info'> click on it</span></strong>. If you click on an incorrect icon you will hear a beep sound.
+					</p>
+					<p>You must try to complete the task as fast and accurately as possible. <strong><span class='text-info'>A bonus will be given to the fastest and most accurate</span></strong>.</p>
+					
+					<br />
+
+					<!-- The button to continue can appear when we put in the instructions a series of keys to press -->
+					<div class='begin'>
+						<%= form_tag('/begin', method: 'post') do %>
+							<%= text_field_tag :turk_id, nil, placeholder: 'Enter Turk ID' %>
+							<%= submit_tag 'Begin', class: 'btn btn-primary btn-large'  %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

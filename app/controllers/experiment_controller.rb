@@ -5,8 +5,12 @@ class ExperimentController < ApplicationController
   def home
   end
 
+  def instructions
+  end
+
   def begin
-  	#get_user_info
+
+    return redirect_to instructions_url, notice: 'You must enter your Turk ID to continue' if params[:turk_id].nil? or params[:turk_id].blank?
 
     u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR']
     session[:id] = u.id
@@ -18,6 +22,8 @@ class ExperimentController < ApplicationController
     performance = generate_performance_set set
     session[:commands] = familiar + performance
     session[:progress] = 0
+
+    redirect_to task_url
   end
 
   def intermediate     
