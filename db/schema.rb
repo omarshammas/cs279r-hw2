@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916214031) do
+ActiveRecord::Schema.define(:version => 20120917012044) do
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -22,5 +22,23 @@ ActiveRecord::Schema.define(:version => 20120916214031) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "tasks", :force => true do |t|
+    t.integer  "button"
+    t.integer  "time"
+    t.integer  "errors"
+    t.string   "block"
+    t.integer  "position"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "turk_id"
+    t.string   "ip"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

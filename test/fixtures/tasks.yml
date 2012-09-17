@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  button: 1
+  time: 1
+  errors: 1
+  block: MyString
+  position: 1
+  user_id: 1
+
+two:
+  button: 1
+  time: 1
+  errors: 1
+  block: MyString
+  position: 1
+  user_id: 1

@@ -1,12 +1,13 @@
 CommandMaps::Application.routes.draw do
-  get "experiment/begin"
-  get "experiment/intermediate"
-  get "experiment/familiar"
 
-  get "staticpages/home"
-  get "/thank_you" => "staticpages#thank_you", as: :thank_you
+  get "/" => "experiment#home", as: :begin
+  get "/begin" => "experiment#begin", as: :begin
+  get "/intermediate" => "experiment#intermediate", as: :intermediate
+  get "/task" => "experiment#task", as: :task
+  post "/task_complete" => "experiment#task_complete", as: :task_complete
+  get "/thank_you" => "experiment#thank_you", as: :thank_you
 
-  root :to => "staticpages#home"
+  root :to => "experiment#home"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,38 +1,65 @@
 class ExperimentController < ApplicationController
+  
+  before_filter :get_user, except: [:begin]
+  
+  def home
+  end
 
   def begin
   	#get_user_info
 
+    u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR']
+    session[:id] = u.id
+
   	#generate the command sets for familiarization and performance sections  	
     set = generate_command_set
     session[:commandset] = set
-    session[:familiar] = generate_familiarization_set set
-  	session[:performance] = generate_performance_set set
+    familiar = generate_familiarization_set set
+    performance = generate_performance_set set
+    session[:commands] = familiar + performance
     session[:progress] = 0
-
   end
 
-  def ribbon_task
-    @progress = session[:progress] 
+  def intermediate     
+  end
+
+  def task
+    session[:progress] += 1
+    @button = session[:commands][session[:progress]]
+
     render layout: "office"
   end
 
-  def command_maps_task
-    render layout: "office"
+  def task_complete
+    #:block, :button, :errors, :position, :time, :user_id
+    position = session[:progress]
+    button = session[:commands][position]
+    block = get_block position
+    Task.create block: block, button: button, errors: params[:errors], position: position, user_id: current_user.id
+
+    redirect_to intermediate_url
   end
 
-  def intermediate
-      	
+  def thank_you
   end
 
 private
 
-  #Generates a set of commands in different parents
-  def generate_command_set
-    N = 6
-
+  def get_user
+    if session[:id].nil? or session[:id].blank?
+      redirect_to root_url
+    end
   end
 
+  def current_user
+    User.find session[:id]
+  end
+
+  #Generates a set of commands in different parents
+  def generate_command_set
+    n = 6
+
+  end
 
   def generate_familiarization_set set
     trials = 5
@@ -43,6 +70,11 @@ private
   def generate_performance_set set
     trials = 15
     #randomize 
+  end
+
+  def get_block n
+    return "familiarization" if n >= 30
+    "performance"
   end
 
 end

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  turk_id: MyString
+  ip: MyString
+
+two:
+  turk_id: MyString
+  ip: MyString
