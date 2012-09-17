@@ -249,6 +249,7 @@ body
 	height: 14px;
 	padding: 3px 4px;
 	text-align: left;
+	float:left;
 
 }
 
@@ -275,7 +276,14 @@ body
 
 #ribbon .ribbon-button-small .ribbon-icon
 {
-	width: 16px;
+/*	width: 16px;*/	
+	height: 16px;
+	float: left;
+	clear: left;
+	margin: -1px 5px 0px 1px;
+}
+#ribbon .ribbon-button-small .ribbon-icon-long
+{
 	height: 16px;
 	float: left;
 	clear: left;
@@ -378,3 +386,22 @@ body
 	width: 200px;
 	top: 150px !important;
 }
+#overlay {
+	display:none;
+    z-index: 10000;
+	filter: alpha(opacity=50); /*older IE*/
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); /* IE */
+	-moz-opacity: .50; /*older Mozilla*/
+	-khtml-opacity: 0.5;   /*older Safari*/
+	opacity: 0.5;   /*supported by current Mozilla, Safari, and Opera*/
+	background-color:#000000;
+    height:900px;
+    width:675px;
+  }
+  /* container for external content. uses vertical scrollbar, if needed */
+div.contentWrap {
+	border:1px solid #666;
+    width:675px;
+    vertical-align:middle;
+    overflow-y:auto;
+  }
