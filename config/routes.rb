@@ -1,8 +1,6 @@
 CommandMaps::Application.routes.draw do
   get "experiment/begin"
-
-  get "experiment/thank_you"
-
+  get "experiment/intermediate"
   get "experiment/familiar"
 
   get "staticpages/home"
