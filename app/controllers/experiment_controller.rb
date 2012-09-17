@@ -12,7 +12,11 @@ class ExperimentController < ApplicationController
 
     return redirect_to instructions_url, notice: 'You must enter your Turk ID to continue' if params[:turk_id].nil? or params[:turk_id].blank?
 
-    u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR']
+    #retrieve the user if they already exist or create a new one
+    u = User.where turk_id: params[:turk_id]
+    u = u.first unless u.nil?
+    u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR'] if u.nil?
+    
     session[:id] = u.id
 
   	#generate the command sets for familiarization and performance sections  	
@@ -37,11 +41,16 @@ class ExperimentController < ApplicationController
   end
 
   def task_complete
+    p "===================="
+    p "Task Completed"
+    p "===================="
+    return redirect_to instructions_url, notice: "It worked #{params[:time]} s, and #{params[:errors]} errors."
+
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
     button = session[:commands][position]
     block = get_block position
-    Task.create block: block, button: button, errors: params[:errors], position: position, user_id: current_user.id
+    Task.create time: params[:time], block: block, button: button, errors: params[:errors], position: position, user_id: current_user.id
 
     redirect_to intermediate_url
   end

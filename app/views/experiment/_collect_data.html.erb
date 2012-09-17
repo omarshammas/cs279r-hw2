@@ -1,0 +1,53 @@
+	<script>
+	    $(document).ready(function(){
+
+	    	//Enable all buttons
+	    	$('#del-table-btn').enable();
+			$('#del-page-btn').enable();
+			$('#save-btn').enable();
+			$('#other-btn-2').enable();
+			$('#enable-btn').hide();
+			$('#disable-btn').show();
+
+
+	    	//var target = <%= @button %> TODO
+	    	var target = 'AddPage';
+	    	var start_time = new Date();
+	    	var errors = 0;
+
+	    	//make the target icon visible
+	    	//TODO
+
+
+		    $('.ribbon-button').click(function () {
+
+		    	//Does that title of the button pressed match the target button
+		        var label = $(this).find('.button-title')[0];
+		        console.log( $(label).text() );
+		        if (label && $(label).text() == target) {
+		        	
+		    		var end_time = new Date();
+		    		var time = end_time - start_time
+
+		    		//update the form, then submit
+		    		$('#task_time').val(time);
+		    		$('#task_errors').val(errors);
+		    		$('#task_form').submit();
+
+		    	} else {
+		    		errors += 1;
+
+		    		//Not correct make a beep
+		    		soundHandle = document.getElementById('soundHandle');
+		    		soundHandle.play();
+		    	}
+		    });
+	    });
+	</script>
+
+	<audio id="soundHandle" src="http://www.soundjay.com/button/sounds/beep-2.mp3" style="display: none;"></audio>
+
+	<%= form_tag('/task_complete', method: 'post', id: :task_form) do %>
+		<%= hidden_field_tag :errors, 0, id: :task_errors %>
+		<%= hidden_field_tag :time, 0, id: :task_time %>
+	<% end %>
