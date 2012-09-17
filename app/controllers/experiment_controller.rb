@@ -1,6 +1,6 @@
 class ExperimentController < ApplicationController
   
-  before_filter :get_user, except: [:begin]
+  before_filter :get_user, except: [:home, :instructions, :begin]
   
   def home
   end
@@ -41,9 +41,7 @@ class ExperimentController < ApplicationController
   end
 
   def task_complete
-    p "===================="
-    p "Task Completed"
-    p "===================="
+
     return redirect_to instructions_url, notice: "It worked #{params[:time]} s, and #{params[:errors]} errors."
 
     #:block, :button, :errors, :position, :time, :user_id
