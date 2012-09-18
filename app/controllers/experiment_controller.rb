@@ -45,6 +45,10 @@ class ExperimentController < ApplicationController
 
     render layout: "office"
   end
+  
+  def commandmaps
+    render :layout => false
+  end
 
   def commandmaps
   end

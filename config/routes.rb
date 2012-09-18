@@ -11,6 +11,7 @@ CommandMaps::Application.routes.draw do
   get "/survey" => "experiment#survey", as: :survey
   get "/results" => "experiment#results", as: :results
   get "/thank_you" => "experiment#thank_you", as: :thank_you
+  get "/commandmaps" => "experiment#commandmaps"
 
   root :to => "experiment#home"
 
