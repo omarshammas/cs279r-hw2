@@ -11,22 +11,18 @@
 
 
 	    	//var target = <%= @button %> TODO
-	    	var target = 'AddPage';
+	    	var target = '<%= @button.abr %>';
 	    	var start_time = new Date();
 	    	var errors = 0;
 
 	    	//make the target icon visible
 	    	//TODO
 
-	    	console.log("here");
 		    $('.ribbon-button').click(function () {
-		    	console.log(this);
-		    	console.log(this.target.id);
 
 		    	//Does that title of the button pressed match the target button
-		        var label = $(this).find('.button-title')[0];
-		        console.log( $(label).text() );
-		        if (label && $(label).text() == target) {
+		        var label = $(this).attr('id')
+		        if (label && label == target) {
 		        	
 		    		var end_time = new Date();
 		    		var time = end_time - start_time

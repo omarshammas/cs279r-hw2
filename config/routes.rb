@@ -5,6 +5,7 @@ CommandMaps::Application.routes.draw do
   post "/begin" => "experiment#begin", as: :begin
   get "/intermediate" => "experiment#intermediate", as: :intermediate
   get "/task" => "experiment#task", as: :task
+  get "/commandmaps" => "experiment#commandmaps", as: :commandmaps
   post "/task_complete" => "experiment#task_complete", as: :task_complete
   get "/survey" => "experiment#survey", as: :survey
   get "/thank_you" => "experiment#thank_you", as: :thank_you

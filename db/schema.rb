@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917012044) do
+ActiveRecord::Schema.define(:version => 20120918055215) do
+
+  create_table "buttons", :force => true do |t|
+    t.string   "name"
+    t.string   "parent"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "abr"
+    t.string   "img"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -26,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20120917012044) do
   create_table "tasks", :force => true do |t|
     t.integer  "button"
     t.integer  "time"
-    t.integer  "errors"
+    t.integer  "bad_clicks"
     t.string   "block"
     t.integer  "position"
     t.integer  "user_id"
@@ -39,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120917012044) do
     t.string   "ip"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "preference"
   end
 
 end
