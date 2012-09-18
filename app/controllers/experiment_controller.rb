@@ -8,6 +8,9 @@ class ExperimentController < ApplicationController
   def instructions
   end
 
+  def commandmap_instructions
+  end
+
   def begin
 
     return redirect_to instructions_url, notice: 'You must enter your Turk ID to continue' if params[:turk_id].nil? or params[:turk_id].blank?
@@ -15,28 +18,26 @@ class ExperimentController < ApplicationController
     #retrieve the user if they already exist or create a new one
     u = User.where turk_id: params[:turk_id]
     u = u.first unless u.nil?
-    u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR'] if u.nil?
-    
-    session[:id] = u.id
 
-  	#generate the command sets for familiarization and performance sections  	
-    set = generate_command_set
-    familiar = generate_familiarization_set(set).map! { |c| c.id }
-    performance = generate_performance_set(set).map! { |c| c.id }
-  
-    session[:commandset] = set.map { |s| s.id  }
-    session[:commands] = familiar + performance
-    session[:progress] = 1
+    if u.nil?
+      u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR'] 
+      
+      session[:id] = u.id
+      session[:progress] = 1
+      session[:roundtwo] = false
+      generate_all_sets
+    end
 
     redirect_to intermediate_url
   end
 
   def intermediate
-    p "-=====================-"
-    p session[:progress]
-    p session[:commands]
-
-    redirect_to survey_url if session[:progress] > 90
+    redirect_to survey_url if session[:roundtwo] and session[:progress] > 90
+    if !session[:roundtwo] and session[:progress] > 90
+      session[:roundtwo] = true
+      generate_all_sets
+      redirect_to commandmap_instructions_url
+    end
   end
 
   def task
@@ -51,9 +52,9 @@ class ExperimentController < ApplicationController
   def task_complete
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
-    button = session[:commands][position]
+    button_id = session[:commands][position%90]
     block = get_block position
-    Task.create time: params[:time], block: block, button: button, bad_clicks: params[:errors], position: position, user_id: current_user.id
+    Task.create time: params[:time], block: block, button_id: button_id, bad_clicks: params[:errors], position: position, user_id: current_user.id
 
     session[:progress] = session[:progress] + 1
 
@@ -80,6 +81,16 @@ private
 
   def current_user
     User.find session[:id]
+  end
+
+  def generate_all_sets
+    #generate the command sets for familiarization and performance sections   
+    set = generate_command_set
+    familiar = generate_familiarization_set(set).map! { |c| c.id }
+    performance = generate_performance_set(set).map! { |c| c.id }
+  
+    session[:commandset] = set.map { |s| s.id  }
+    session[:commands] = familiar + performance
   end
 
   #Generates a set of commands in different parents
