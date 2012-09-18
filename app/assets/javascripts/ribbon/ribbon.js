@@ -191,7 +191,6 @@
 		
 		$("a[rel]").overlay({
  
-        mask: 'darkred',
         effect: 'apple',
  
         onBeforeLoad: function() {

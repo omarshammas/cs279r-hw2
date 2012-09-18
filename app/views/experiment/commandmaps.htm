@@ -5,30 +5,11 @@
 		<link href="assets/cm/commandmaps.css" rel="stylesheet" type="text/css" />
 		<link href="assets/soft_button.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-		<script type="text/javascript" src="assets/cm/cm.js"></script>
-		<script type="text/javascript" src="assets/jquery.tooltip.min.js"></script>
+		<script type="text/javascript" src="assets/cm/commandmaps.js"></script>
+		<script type="text/javascript" src="assets/ribbon/jquery.tooltip.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#cm').cm();
-
-				$('#enable-btn').click(function() {
-					$('#del-table-btn').enable();
-					$('#del-page-btn').enable();
-					$('#save-btn').enable();
-					$('#other-btn-2').enable();
-
-					$('#enable-btn').hide();
-					$('#disable-btn').show();
-				});
-				$('#disable-btn').click(function() {
-					$('#del-table-btn').disable();
-					$('#del-page-btn').disable();
-					$('#save-btn').disable();
-					$('#other-btn-2').disable();
-
-					$('#disable-btn').hide();
-					$('#enable-btn').show();
-				});
 
 				$('.cm-button').click(function() {
 					if (this.isEnabled()) {
@@ -90,28 +71,28 @@
 					<div class="cm-button cm-button-small" id="number_list-btn">
 						<span class="button-help">Numbered List</span>
 						<img class="cm-icon cm-normal" src="assets/normal/list_numbers.png" />
-						<img class="cm-icon cm-hot" src="assets/hot/thesaurus.png" />
+						<img class="cm-icon cm-hot" src="assets/hot/list_numbers.png" />
 					</div>
 					<div class="cm-button cm-button-small" id="multilevel_list-btn">
 						<span class="button-help">Multilevel List</span>
 						<img class="cm-icon cm-normal" src="assets/normal/list_multilevel.png" />
-						<img class="cm-icon cm-hot" src="assets/hot/thesaurus.png" />
+						<img class="cm-icon cm-hot" src="assets/hot/list_multilevel.png" />
 					</div>
-					<br>
+					<br/>
 					<div class="cm-button cm-button-small" id="align_left-btn">
 						<span class="button-help">Align text left</span>
 						<img class="cm-icon cm-normal" src="assets/normal/paragraph_align_left.png" />
-						<img class="cm-icon cm-hot" src="assets/hot/thesaurus.png" />
+						<img class="cm-icon cm-hot" src="assets/hot/paragraph_align_left.png" />
 					</div>
 					<div class="cm-button cm-button-small" id="align_center-btn">
 						<span class="button-help">Center Text</span>
 						<img class="cm-icon cm-normal" src="assets/normal/paragraph_align_center.png" />
-						<img class="cm-icon cm-hot" src="assets/hot/thesaurus.png" />
+						<img class="cm-icon cm-hot" src="assets/hot/paragraph_align_center.png" />
 					</div>
 					<div class="cm-button cm-button-small" id="align_right-btn">
 						<span class="button-help">Align text right</span>
 						<img class="cm-icon cm-normal" src="assets/normal/paragraph_align_right.png" />
-						<img class="cm-icon cm-hot" src="assets/hot/thesaurus.png" />
+						<img class="cm-icon cm-hot" src="assets/hot/paragraph_align_right.png" />
 					</div>
 				</div>
 				<div class="cm-section">
@@ -122,7 +103,7 @@
 							Styles</span>
 						<span class="button-help">Change document style</span>
 						<img class="cm-icon cm-normal" src="assets/normal/styles.png" />
-						<img class="cm-icon cm-hot" src="assets/hot/thesaurus.png" />
+						<img class="cm-icon cm-hot" src="assets/hot/styles.png" />
 					</div>
 				</div>
 			</div>
@@ -425,7 +406,7 @@
 					</div>
 					<div class="cm-button cm-button-large" id="reading_lyt_btn">
 						<span class="button-title">Full Screen
-							<br>
+							<br/>
 							Layout</span>
 						<span class="button-help">View the document in full screen layout mode</span>
 						<img class="cm-icon cm-normal" src="assets/normal/view_full_screen_reading.png" />

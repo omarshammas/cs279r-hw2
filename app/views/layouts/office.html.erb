@@ -1,41 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Command Selection Experiment</title>
-	<link href="/assets/ribbon/ribbon.css" rel="stylesheet" type="text/css" />
-	<link href="/assets/ribbon/soft_button.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/assets/ribbon/ribbon.js"></script>
-	<script type="text/javascript" src="/assets/ribbon/jquery.tooltip.min.js"></script>
+	<title>Roger Pincombe's Ribbon Test</title>
+	<link href="assets/ribbon/ribbon.css" rel="stylesheet" type="text/css" />
+	<link href="assets/ribbon/soft_button.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="assets/ribbon/ribbon.js"></script>
+	<script type="text/javascript" src="assets/ribbon/jquery.tooltip.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#ribbon').ribbon();
-			
-			$('#enable-btn').click(function() {
-				$('#del-table-btn').enable();
-				$('#del-page-btn').enable();
-				$('#save-btn').enable();
-				$('#other-btn-2').enable();
-				
-				$('#enable-btn').hide();
-				$('#disable-btn').show();	
-			});
-			$('#disable-btn').click(function() {
-				$('#del-table-btn').disable();
-				$('#del-page-btn').disable();
-				$('#save-btn').disable();
-				$('#other-btn-2').disable();
-				
-				$('#disable-btn').hide();
-				$('#enable-btn').show();	
-			});
-			
+					
 			$('.ribbon-button').click(function() {
 				if (this.isEnabled()) {
 					alert($(this).attr('id') + ' clicked');
 				}
 			});
-		});
+			
+			if (document.addEventListener)
+    		{
+       			document.addEventListener("keydown",keydown,false);
+     		}
+     		else if (document.attachEvent){
+     			document.attachEvent("onkeydown"
+				,keydown)
+				}
+				else {
+					document.onkeydown = keydown
+				}
+			function keydown(e) {
+					if (!e)
+						e = event;
+            		document.getElementById("hidden-button").click();
+				}
+				});
 	</script>
 
 </head>

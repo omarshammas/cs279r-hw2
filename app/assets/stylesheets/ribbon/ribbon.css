@@ -389,19 +389,23 @@ body
 #overlay {
 	display:none;
     z-index: 10000;
-	filter: alpha(opacity=50); /*older IE*/
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); /* IE */
+	filter: alpha(opacity=90); /*older IE*/
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90); /* IE */
 	-moz-opacity: .50; /*older Mozilla*/
-	-khtml-opacity: 0.5;   /*older Safari*/
-	opacity: 0.5;   /*supported by current Mozilla, Safari, and Opera*/
+	-khtml-opacity: 0.9;   /*older Safari*/
+	opacity: 0.9;   /*supported by current Mozilla, Safari, and Opera*/
 	background-color:#000000;
-    height:900px;
     width:675px;
   }
-  /* container for external content. uses vertical scrollbar, if needed */
+  
 div.contentWrap {
+	padding:10px 10px;
 	border:1px solid #666;
     width:675px;
     vertical-align:middle;
     overflow-y:auto;
+  }
+  
+ #hidden-button{
+  	display:none;
   }
