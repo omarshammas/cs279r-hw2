@@ -6,4 +6,6 @@ class Button < ActiveRecord::Base
   scope :layout, where(parent: :layout)
   scope :insert, where(parent: :insert)
   scope :view, where(parent: :view)
+
+  has_many :tasks
 end

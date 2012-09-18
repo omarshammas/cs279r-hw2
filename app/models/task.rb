@@ -1,7 +1,8 @@
 class Task < ActiveRecord::Base
-  attr_accessible :block, :button, :bad_clicks, :position, :time, :user_id
+  attr_accessible :block, :bad_clicks, :position, :time, :user_id, :button_id
 
-  belongs_to :user
+  belongs_to :user 
+  belongs_to :button
 
   scope :familiar, where(block: 'familiarization')
   scope :performance, where(block: 'performance')

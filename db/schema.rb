@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918055215) do
+ActiveRecord::Schema.define(:version => 20120918061630) do
 
   create_table "buttons", :force => true do |t|
     t.string   "name"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20120918055215) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tasks", :force => true do |t|
-    t.integer  "button"
+    t.integer  "button_id"
     t.integer  "time"
     t.integer  "bad_clicks"
     t.string   "block"

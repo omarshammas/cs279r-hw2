@@ -121,7 +121,7 @@ private
   end
 
   def get_block n
-    return "familiarization" if n >= 30
+    return "familiarization" if n <= 30
     "performance"
   end
 
