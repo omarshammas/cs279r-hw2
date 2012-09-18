@@ -192,6 +192,7 @@
 		$("a[rel]").overlay({
  
         effect: 'apple',
+        speed: 'fast',
  
         onBeforeLoad: function() {
  

@@ -406,6 +406,6 @@ div.contentWrap {
     overflow-y:auto;
   }
   
- #hidden-button{
+.hidden-button{
   	display:none;
-  }
+ }
