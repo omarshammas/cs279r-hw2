@@ -31,6 +31,8 @@ class ExperimentController < ApplicationController
   end
 
   def intermediate 
+    @complete = session[:progress] >= 90
+    redirect_to survey_url
   end
 
   def task
@@ -51,6 +53,9 @@ class ExperimentController < ApplicationController
     Task.create time: params[:time], block: block, button: button, errors: params[:errors], position: position, user_id: current_user.id
 
     redirect_to intermediate_url
+  end
+
+  def survey
   end
 
   def thank_you

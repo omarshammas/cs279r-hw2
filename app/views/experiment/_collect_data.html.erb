@@ -18,8 +18,10 @@
 	    	//make the target icon visible
 	    	//TODO
 
-
+	    	console.log("here");
 		    $('.ribbon-button').click(function () {
+		    	console.log(this);
+		    	console.log(this.target.id);
 
 		    	//Does that title of the button pressed match the target button
 		        var label = $(this).find('.button-title')[0];
