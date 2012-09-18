@@ -63,6 +63,10 @@ class ExperimentController < ApplicationController
   def survey
   end
 
+  def results
+    @tasks = Task.where(user_id: current_user.id).order('position asc')
+  end
+
   def thank_you
   end
 

@@ -8,6 +8,7 @@ CommandMaps::Application.routes.draw do
   get "/commandmaps" => "experiment#commandmaps", as: :commandmaps
   post "/task_complete" => "experiment#task_complete", as: :task_complete
   get "/survey" => "experiment#survey", as: :survey
+  get "/results" => "experiment#results", as: :results
   get "/thank_you" => "experiment#thank_you", as: :thank_you
 
   root :to => "experiment#home"

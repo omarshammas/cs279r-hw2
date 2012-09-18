@@ -1,0 +1,32 @@
+<div id='home' class='container'>
+
+	<div class='row'>
+
+		<div class='span8 offset2'>
+			<h1>Task Results</h1>
+			<table class="table table-striped">
+				<tr>
+					<th>#</th>
+					<th>Image</th>
+					<th>Time</th>
+					<th>Errors</th>
+					<th>Block</th>
+				</tr>
+
+				<% @tasks.each do |t| %>
+					<tr>
+						<td><%= t.position %></td>
+						<!-- <td><img src='/assets/normal/<%= t.button %>' /></td> -->
+						<td><%= t.button %></td>
+						<td><%= t.time %></td>
+						<td><%= t.bad_clicks %></td>
+						<td><%= t.block %></td>
+					</tr>
+				<% end %>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+
