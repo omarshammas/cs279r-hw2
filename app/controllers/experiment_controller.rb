@@ -52,10 +52,8 @@ class ExperimentController < ApplicationController
   end
   
   def commandmaps
+    @button = Button.find session[:commands][session[:progress]%(COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS))]
     render :layout => false
-  end
-
-  def commandmaps
   end
 
   def task_complete
@@ -67,7 +65,7 @@ class ExperimentController < ApplicationController
 
     session[:progress] = session[:progress] + 1
 
-    return redirect_to intermediate_url, notice: "Time to complete #{params[:time]} s with #{params[:errors]} errors."
+    return redirect_to intermediate_url, notice: "Time to complete #{params[:time]} ms with #{params[:errors]} errors."
   end
 
   def survey
