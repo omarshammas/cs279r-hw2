@@ -395,13 +395,11 @@ body
 	-khtml-opacity: 0.9;   /*older Safari*/
 	opacity: 0.9;   /*supported by current Mozilla, Safari, and Opera*/
 	background-color:#000000;
-    width:675px;
   }
   
 div.contentWrap {
 	padding:10px 10px;
 	border:1px solid #666;
-    width:675px;
     vertical-align:middle;
     overflow-y:auto;
   }
