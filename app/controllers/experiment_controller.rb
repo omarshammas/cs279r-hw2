@@ -2,6 +2,10 @@ class ExperimentController < ApplicationController
   
   before_filter :get_user, except: [:home, :instructions, :begin]
   
+  COMMAND_SET_SIZE = 6
+  FAMILIAR_TRIALS = 1
+  PERFORMANCE_TRIALS = 1
+
   def home
   end
 
@@ -23,7 +27,7 @@ class ExperimentController < ApplicationController
       u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR'] 
       
       session[:id] = u.id
-      session[:progress] = 1
+      session[:progress] = 0
       session[:roundtwo] = false
       generate_all_sets
     end
@@ -32,8 +36,9 @@ class ExperimentController < ApplicationController
   end
 
   def intermediate
-    redirect_to survey_url if session[:roundtwo] and session[:progress] > 90
-    if !session[:roundtwo] and session[:progress] > 90
+    redirect_to survey_url if session[:roundtwo] and session[:progress] >= 2*(COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS))
+    
+    if !session[:roundtwo] and session[:progress] >= (COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS))
       session[:roundtwo] = true
       generate_all_sets
       redirect_to commandmap_instructions_url
@@ -41,7 +46,7 @@ class ExperimentController < ApplicationController
   end
 
   def task
-    @button = Button.find session[:commands][session[:progress]]
+    @button = Button.find session[:commands][session[:progress]%(COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS))]
 
     render layout: "office"
   end
@@ -56,7 +61,7 @@ class ExperimentController < ApplicationController
   def task_complete
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
-    button_id = session[:commands][position%90]
+    button_id = session[:commands][position%(COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS))]
     block = get_block position
     Task.create time: params[:time], block: block, button_id: button_id, bad_clicks: params[:errors], position: position, user_id: current_user.id
 
@@ -99,8 +104,6 @@ private
 
   #Generates a set of commands in different parents
   def generate_command_set
-    n = 6
-
     commands = Button.home.sample 3
     
     all_parents = ['review', 'insert', 'view', 'layout']
@@ -110,17 +113,14 @@ private
   end
 
   def generate_familiarization_set commands
-    trials = 5
-    set = commands * trials
+    set = commands * FAMILIAR_TRIALS
     set.shuffle
   end
 
 
   def generate_performance_set commands
-    p "inside performance"
-    trials = 15
     begin
-      set = commands * trials
+      set = commands * PERFORMANCE_TRIALS
       set.shuffle!(random: Random.new(1)) 
     end #while !fifty_percent_switching?(set) #TODO
     set
@@ -136,7 +136,7 @@ private
   end
 
   def get_block n
-    return "familiarization" if n <= 30
+    return "familiarization" if n%(COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS)) <= (COMMAND_SET_SIZE*FAMILIAR_TRIALS)-1
     "performance"
   end
 
