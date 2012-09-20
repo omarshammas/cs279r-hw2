@@ -1,21 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Command Selection Experiment</title>
-		<link href="assets/cm/commandmaps.css" rel="stylesheet" type="text/css" />
-		<link href="assets/ribbon/soft_button.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-		<script type="text/javascript" src="assets/cm/commandmaps.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('#cm').cm();
-			});
-		</script>
+	<script>
+	$(document).ready(function() {
 
-	</head>
-	<body>
-		<%= render 'collect_cm_data' %>
-		
+		//var target = <%= @button %> TODO
+		var target = '<%= @button.abr %>';
+		var start_time = new Date();
+		var errors = 0;
+
+		//make the target icon visible
+		//TODO
+
+		$('.cm-button').click(function() {
+
+			//Does that title of the button pressed match the target button
+			var label = $(this).attr('id')
+			if (label && label == target) {
+				var end_time = new Date();
+				var time = end_time - start_time
+				//update the form, then submit
+				$('#task_time').val(time);
+				$('#task_errors').val(errors);
+				$('#task_form').submit();
+
+			} else {
+				errors += 1;
+			}
+		});
+	}); 
+</script>
+
 		<div id="cm">
 			<div class="cm-section-title">
 				<span class="cm-section-title-tab">Home</span>
@@ -464,5 +476,3 @@
 				</div>
 			</div>
 		</div>
-	</body>
-</html>

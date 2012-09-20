@@ -1,16 +1,7 @@
 <%= render 'collect_data' %>
 
-<a href="commandmaps.htm" rel="#overlay"> <!-- remember that you can use any element inside the trigger -->
-<button type="button" class="hidden-button" id="open-button">
-	Click to Open CommandMaps
-</button></a>
-<button type="button" class="close hidden-button" id="close-button">
-	Click to Close CommandMaps
-</button>
-
-<div class="simple_overlay" id="overlay">
-	<!-- the external content is loaded inside this tag -->
-	<div class="contentWrap"></div>
+<div id="commandmap">
+		<%= render 'commandmaps'%>
 </div>
 <div id="ribbon">
 	<span class="ribbon-window-title">Command Selection Experiment</span>

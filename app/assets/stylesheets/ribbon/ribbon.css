@@ -386,23 +386,21 @@ body
 	width: 200px;
 	top: 150px !important;
 }
-#overlay {
-	display:none;
-    z-index: 10000;
-	filter: alpha(opacity=90); /*older IE*/
-	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90); /* IE */
-	-moz-opacity: .50; /*older Mozilla*/
-	-khtml-opacity: 0.9;   /*older Safari*/
-	opacity: 0.9;   /*supported by current Mozilla, Safari, and Opera*/
-	background-color:#000000;
-  }
+#commandmap {
+	/* overlay is hidden before loading */
+    display:none;
+ 
+    /* standard decorations */
+    width:400px;
+    border:10px solid #666;
+}
   
-div.contentWrap {
+/*div.contentWrap {
 	padding:10px 10px;
 	border:1px solid #666;
     vertical-align:middle;
     overflow-y:auto;
-  }
+  }*/
   
 .hidden-button{
   	display:none;

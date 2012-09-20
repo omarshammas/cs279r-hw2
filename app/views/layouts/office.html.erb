@@ -4,11 +4,11 @@
 	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Command Selection Experiment</title>
 	<link href="assets/ribbon/ribbon.css" rel="stylesheet" type="text/css" />
+	<link href="assets/cm/commandmaps.css" rel="stylesheet" type="text/css" />
 	<link href="assets/ribbon/soft_button.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="assets/ribbon/ribbon.js"></script>
-	<script type="text/javascript" src="assets/ribbon/jquery.tooltip.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#ribbon').ribbon();
@@ -20,24 +20,23 @@
      		}
      		else if (document.attachEvent){
      			document.attachEvent("onkeydown"
-				,keydown)
-				}
-				else {
-					document.onkeydown = keydown
-				}
-				function keydown(e) {
-					if (!e)
-						e = event;
-					if(!e.ctrlKey)
-						return;
-					var overlay = document.getElementById("overlay");
-					if (overlay.offsetWidth > 0 || overlay.offsetHeight > 0) {
-						document.getElementById("close-button").click();
-					} else {
-						document.getElementById("open-button").click();
+					,keydown)
 					}
-				}
-			 });
+					else {
+						document.onkeydown = keydown
+					}
+					function keydown(e) {
+						if (!e)
+							e = event;
+						if (!e.ctrlKey)
+							return;
+						if ($("#commandmap").overlay().isOpened()) {
+							$("#commandmap").overlay().close();
+						} else {
+							$("#commandmap").overlay().load();
+						}
+					}
+					});
 	</script>
 
 </head>
