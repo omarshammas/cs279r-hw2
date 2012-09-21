@@ -67,7 +67,7 @@ namespace :app do
 			{parent: 'view', abr: 'one_page-btn', name:'View the document one page at a time', img: 'view_page_one.png' },
 			{parent: 'view', abr: 'two_page-btn', name:'View the document two pages at a time', img: 'view_page_two.png' },
 			{parent: 'view', abr: 'page_width-btn', name:'View the document at page width', img: 'view_page_width.png' },
-			{parent: 'view', abr: 'macros-btn', name:'Insert a macro into the document', img: 'macros'}
+			{parent: 'view', abr: 'macros-btn', name:'Insert a macro into the document', img: 'macros.png'}
 
 		].each do |b|
 			Button.create b
