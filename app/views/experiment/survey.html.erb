@@ -1,21 +1,23 @@
-<div id='begin' class='container'>
+<div id='begin' class='container-fluid'>
 
-	<div class='row'>
+	<div class='row-fluid'>
 
-		<div class='span8 offset2'>
-
-			<div class='hero-unit'>
-				<h1>Which way did you prefer?</h1>
-			</div>
+		<div class='span12'>
 
 			<% if flash[:notice] %>
 			    <div id="notice" class="alert alert-error"><%= flash[:notice] %></div>
 			<% end %>
 
-			<div class='row'>
-				<div class='span8'>
-					<a href='/thank_you?prefer=commandmaps' class='btn btn-primary btn-large'>I prefer CommandMaps</a>
-					<a href='/thank_you?prefer=ribbons' class='btn btn-primary btn-large'>I prefer Ribbons &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			<div class='hero-unit'>
+				<h1>Great, you are almost done. One last question, which way did you prefer?</h1>
+			</div>
+
+			<div class='row-fluid'>
+				<div class='span10 offset1'>
+					<%= form_tag('/preference', method: 'post') do %>
+						<%= text_field_tag :preference, nil, id: 'preference', placeholder: 'Command maps or ribbons?' %>
+						<%= submit_tag 'Submit', class: 'btn btn-primary btn-large'  %>
+					<% end %>
 				</div>
 			</div>
 		</div>

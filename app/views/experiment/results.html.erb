@@ -2,24 +2,30 @@
 
 	<div class='row'>
 
-		<div class='span8 offset2'>
-			<h1>Task Results</h1>
+		<div class='span8 offset1'>
+			<h1><%= @user.turk_id %>'s Results</h1>
+
+			Preference: <%= @user.preference %> <br />
+			IP: <%= @user.ip %> <br /> <br />
+			
 			<table class="table table-striped">
 				<tr>
+					<th>Menu</th>
 					<th>#</th>
+					<th>Block</th>
 					<th>Image</th>
 					<th>Time (ms)</th>
 					<th>Errors</th>
-					<th>Block</th>
 				</tr>
 
 				<% @tasks.each do |t| %>
 					<tr>
+						<td><%= t.menu %></td>
 						<td><%= t.position %></td>
+						<td><%= t.block %></td>
 						<td><img src='/assets/normal/<%= t.button.img %>' /></td>
 						<td><%= t.time %></td>
 						<td><%= t.bad_clicks %></td>
-						<td><%= t.block %></td>
 					</tr>
 				<% end %>
 			</table>

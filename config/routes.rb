@@ -1,19 +1,23 @@
 CommandMaps::Application.routes.draw do
 
-  get "/" => "experiment#home", as: :begin
-  get "/instructions" => "experiment#instructions", as: :instructions
-  get "/commandmap_instructions" => "experiment#commandmap_instructions", as: :commandmap_instructions
+  get "/embed" => "experiment#embed"
+  get "/home" => "experiment#home", as: :home
   post "/begin" => "experiment#begin", as: :begin
-  get "/intermediate" => "experiment#intermediate", as: :intermediate
-  get "/task" => "experiment#task", as: :task
-  get "/commandmaps" => "experiment#commandmaps", as: :commandmaps
-  post "/task_complete" => "experiment#task_complete", as: :task_complete
-  get "/survey" => "experiment#survey", as: :survey
-  get "/results" => "experiment#results", as: :results
-  get "/thank_you" => "experiment#thank_you", as: :thank_you
-  get "/commandmaps" => "experiment#commandmaps"
 
-  root :to => "experiment#home"
+  get "/instructions_ribbon" => "experiment#instructions_ribbon", as: :instructions_ribbon
+  get "/instructions_commandmaps" => "experiment#instructions_commandmaps", as: :instructions_commandmaps
+
+  get "/intermediate" => "experiment#intermediate", as: :intermediate
+  get "/commandmaps" => "experiment#commandmaps", as: :commandmaps
+  get "/task" => "experiment#task", as: :task
+  post "/task_complete" => "experiment#task_complete", as: :task_complete
+  
+  get "/survey" => "experiment#survey", as: :survey
+  post "/preference" => "experiment#preference", as: :preference
+  get "/thank_you" => "experiment#thank_you", as: :thank_you
+  get "/results" => "experiment#results", as: :results
+
+  root :to => "experiment#embed"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
