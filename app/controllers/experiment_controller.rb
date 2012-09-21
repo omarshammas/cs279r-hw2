@@ -162,7 +162,7 @@ private
   def generate_performance_set commands
     begin
       set = commands * PERFORMANCE_TRIALS
-      set.shuffle!(random: Random.new(1)) 
+      set.shuffle!
     end #while !fifty_percent_switching?(set) #TODO
     set
   end
