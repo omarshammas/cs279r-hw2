@@ -393,6 +393,12 @@ body
     /* standard decorations */
     width:400px;
     border:10px solid #666;
+    filter: alpha(opacity=90); /*older IE*/
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90); /* IE */
+	-moz-opacity: .50; /*older Mozilla*/
+	-khtml-opacity: 0.9;   /*older Safari*/
+	opacity: 0.9;   /*supported by current Mozilla, Safari, and Opera*/
+	background-color:#000000;
 }
   
 /*div.contentWrap {

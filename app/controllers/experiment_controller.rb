@@ -46,6 +46,10 @@ class ExperimentController < ApplicationController
   end
 
   def task
+    @ribbon = true;
+    if(session[:roundtwo])
+      @ribbon = false;
+    end
     @button = Button.find session[:commands][session[:progress]%(COMMAND_SET_SIZE*(PERFORMANCE_TRIALS+FAMILIAR_TRIALS))]
 
     render layout: "office"
@@ -102,7 +106,7 @@ private
 
   #Generates a set of commands in different parents
   def generate_command_set
-    commands = Button.home.sample 3
+    commands = Button.home.samplex 3
     
     all_parents = ['review', 'insert', 'view', 'layout']
     two_parents = all_parents.sample 2
