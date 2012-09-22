@@ -1,20 +1,33 @@
 	<script>
 	    $(document).ready(function(){
 
-
-
-	    	//var target = <%= @button %> TODO
 	    	var target = '<%= @button.abr %>';
-	    	var start_time = new Date();
-	    	var errors = 0;
+	    	var start_time;
+	    	var errors;
 
-	    	//make the target icon visible
-	    	//TODO
+	    	//once the page has loaded present the user with the button to begin.
+	    	$('#target_icon').empty();
+	    	$('#target_icon').append('<button id="target_icon_btn">Show me my next task</button>');
+
+
+	    	$('#target_icon_btn').click(function () {
+	    		$('#target_icon').empty();
+	    		$('#target_icon').append('You are looking for <img src="/assets/normal/<%= @button.img %>"" /> - <%= @button.name %>');
+	    		start_time = new Date();
+	    		errors = 0;
+	    	});
 
 		    $('.ribbon-button').click(function () {
+		    	record_click(this)
+		    });
 
+		    $('.cm-button').click(function() {
+		    	record_click(this);
+			});
+
+			function record_click (div){
 		    	//Does that title of the button pressed match the target button
-		        var label = $(this).attr('id')
+		        var label = $(div).attr('id')
 		        if (label && label == target) {
 		        	
 		    		var end_time = new Date();
@@ -32,7 +45,7 @@
 		    		soundHandle = document.getElementById('soundHandle');
 		    		soundHandle.play();
 		    	}
-		    });
+			}
 	    });
 	</script>
 

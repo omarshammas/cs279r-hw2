@@ -6,4 +6,5 @@ class Task < ActiveRecord::Base
 
   scope :familiar, where(block: 'familiarization')
   scope :performance, where(block: 'performance')
+
 end

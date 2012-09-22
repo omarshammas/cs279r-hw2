@@ -1,6 +1,6 @@
 class ExperimentController < ApplicationController
   
-  before_filter :get_user, except: [:embed, :home, :instructions, :begin]
+  before_filter :get_user, except: [:embed, :home, :begin]
   
   COMMAND_SET_SIZE = 6
   FAMILIAR_TRIALS = 1
@@ -11,6 +11,18 @@ class ExperimentController < ApplicationController
   end
 
   def home
+    if current_user.nil?
+      u = User.create
+      
+      session[:id] = u.id
+      session[:progress] = 0
+      session[:roundtwo] = false
+      session[:stage] = 'middle'
+      generate_all_sets      
+    end
+
+    @page = instructions_ribbon_url if session[:ribbon]
+    @page = instructions_commandmaps_url if !session[:ribbon]
   end
 
   def instructions_ribbon
@@ -19,56 +31,14 @@ class ExperimentController < ApplicationController
   def instructions_commandmaps
   end
 
-  def begin
-    return redirect_to home_url, notice: 'You must enter your Turk ID to continue' if params[:turk_id].nil? or params[:turk_id].blank?
-
-    #retrieve the user if they already exist or create a new one
-    u = User.where turk_id: params[:turk_id]
-    u = u.first unless u.nil?
-
-    if u.nil?
-      u = User.create turk_id: params[:turk_id], ip: request.env['REMOTE_ADDR'] 
-      
-      session[:id] = u.id
-      session[:progress] = 0
-      session[:roundtwo] = false
-      generate_all_sets      
-    elsif session[:stage].nil?
-      #cookie was erased but this user is on file
-      session[:stage] = 'thank_you'
-      return redirect_to thank_you_url
-    end
-
-    session[:stage] = 'middle'
-    if session[:ribbon]
-      redirect_to instructions_ribbon_url
-    else
-      redirect_to instructions_commandmaps_url
-    end
-  end
-
-  def intermediate
-
-    redirect_to survey_url if experiment_complete?
-
-    if next_round?
-      session[:roundtwo] = true
-      session[:progress] = 0
-      session[:ribbon] = !session[:ribbon] #toggle so now we start the next round
-      if session[:ribbon] 
-        redirect_to instructions_ribbon_url
-      else
-        redirect_to instructions_commandmaps_url        
-      end
-    end
-    
-  end
-
   def task
     return redirect_to survey_url if experiment_complete?
 
     @ribbon = session[:ribbon]
     @button = get_button
+
+
+    @remaining = block_size
 
     render layout: "office"
   end
@@ -87,7 +57,21 @@ class ExperimentController < ApplicationController
 
     session[:progress] = session[:progress] + 1
 
-    return redirect_to intermediate_url, notice: "Time to complete #{params[:time]} ms with #{params[:errors]} errors."
+
+    return redirect_to survey_url if experiment_complete?
+
+    if next_round?
+      session[:roundtwo] = true
+      session[:progress] = 0
+      session[:ribbon] = !session[:ribbon] #toggle so now we start the next round
+      if session[:ribbon] 
+        return redirect_to instructions_ribbon_url
+      else
+        return redirect_to instructions_commandmaps_url        
+      end
+    end
+
+    redirect_to task_url, notice: "Previous Task - Time to complete #{params[:time]} ms with #{params[:errors]} errors."
   end
 
   def survey
@@ -120,6 +104,7 @@ private
   end
 
   def current_user
+    return nil if session.nil? or session[:id].blank?
     User.find session[:id]
   end
 
@@ -197,7 +182,7 @@ private
 
     return instructions_ribbon_path if session[:progress] == 0 and session[:ribbons]
     return instructions_commandmaps_path if session[:progress] == 0 and !session[:ribbons]
-    intermediate_path
+    task_path
   end
 
   def experiment_complete?

@@ -16,13 +16,7 @@
 					    <div id="notice" class="alert alert-error"><%= flash[:notice] %></div>
 					<% end %>
 
-					<!-- The button to continue can appear when we put in the instructions a series of keys to press -->
-					<div class='begin'>
-						<%= form_tag('/begin', method: 'post') do %>
-							<%= text_field_tag :turk_id, nil, id: 'preference', placeholder: 'Enter Turk ID' %>
-							<%= submit_tag 'Begin', class: 'btn btn-primary btn-large'  %>
-						<% end %>
-					</div>				
+					<%= link_to 'Begin', @page, class: 'btn btn-primary' %>		
 				</div>
 			</div>
 		</div>

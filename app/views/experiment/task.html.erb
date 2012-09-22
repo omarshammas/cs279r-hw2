@@ -1,10 +1,18 @@
 <%= render 'collect_data' %>
-<div id="commandmap">
-		<%= render 'commandmaps'%>
-</div>
-<div id="ribbon">
-	<span class="ribbon-window-title">Command Selection Experiment</span>
 
+<% if !@ribbon %>
+	<div id="commandmap">
+		<%= render 'commandmaps'%>
+	</div>
+<% end %>
+
+<div id="ribbon">
+
+	<% if @ribbon %>	
+		<span class="ribbon-window-title">Ribbons</span>
+	<% else %>
+		<span class="ribbon-window-title">Command Maps</span>
+	<% end %>
 
 <%= 
 	if(@ribbon)
@@ -14,8 +22,24 @@
 
 </div>
 <div class="page">
-	You are looking for <img src='/assets/normal/<%= @button.img %>' /> - <%= @button.name %>.
+
+	<div id="target_icon">
+	</div>
 	<br />
+	<% if @ribbon %>
+		 
+	<% else %>
+		Remember you can activate the menu by selecting CTRL on your keyboard.
+	<% end %>
+
+	<br />
+	<br />
+
+	<% if flash[:notice] %>
+	    <div id="notice" class="alert alert-error"><%= flash[:notice] %></div>
+	<% end %>
+
+
 	<br />
 	<br />
 </div>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mental: 9.99
+  physical: 9.99
+  temporal: 9.99
+  performance: 9.99
+  effort: 9.99
+  frustration: 9.99
+
+two:
+  mental: 9.99
+  physical: 9.99
+  temporal: 9.99
+  performance: 9.99
+  effort: 9.99
+  frustration: 9.99

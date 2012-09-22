@@ -1,33 +1,3 @@
-	<script>
-	$(document).ready(function() {
-
-		//var target = <%= @button %> TODO
-		var target = '<%= @button.abr %>';
-		var start_time = new Date();
-		var errors = 0;
-
-		//make the target icon visible
-		//TODO
-
-		$('.cm-button').click(function() {
-
-			//Does that title of the button pressed match the target button
-			var label = $(this).attr('id')
-			if (label && label == target) {
-				var end_time = new Date();
-				var time = end_time - start_time
-				//update the form, then submit
-				$('#task_time').val(time);
-				$('#task_errors').val(errors);
-				$('#task_form').submit();
-
-			} else {
-				errors += 1;
-			}
-		});
-	}); 
-</script>
-
 		<div id="cm">
 			<div class="cm-section-title">
 				<span class="cm-section-title-tab">Home</span>
