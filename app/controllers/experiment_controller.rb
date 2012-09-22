@@ -22,6 +22,7 @@ class ExperimentController < ApplicationController
       session[:id] = u.id
       session[:progress] = 0
       session[:roundtwo] = false
+      session[:tab_index] = 0
       generate_all_sets
     end
 
@@ -48,8 +49,7 @@ class ExperimentController < ApplicationController
 
     @ribbon = session[:ribbon]
     @button = get_button
-
-
+    @tab_index = session[:tab_index]
     @remaining = block_size
 
     render layout: "office"
@@ -63,12 +63,17 @@ class ExperimentController < ApplicationController
   def task_complete
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
-    button_id = get_button().id
+    button = get_button()
     block = get_block position
-    Task.create time: params[:time], menu: get_menu, block: block, button_id: button_id, bad_clicks: params[:errors], position: position, user_id: current_user.id
+    tab_hash = {"home" => 0, "review" => 1, "insert" => 2, "layout" => 3, "view" => 4}
+    parent_switch = false
+    new_tab_index = tab_hash[button.parent]
+    parent_switch = true unless new_tab_index == session[:tab_index]
+    session[:tab_index] = tab_hash[button.parent]
+    
+    Task.create time: params[:time], menu: get_menu, block: block, button_id: button.id, bad_clicks: params[:errors], position: position, user_id: current_user.id, parent_switch: parent_switch
 
     session[:progress] = session[:progress] + 1
-
 
     return redirect_to survey_url if next_round? or experiment_complete?
 

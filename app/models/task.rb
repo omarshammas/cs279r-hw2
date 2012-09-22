@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :block, :bad_clicks, :position, :time, :user_id, :button_id, :menu
+  attr_accessible :block, :bad_clicks, :position, :time, :user_id, :button_id, :menu, :parent_switch
 
   belongs_to :user 
   belongs_to :button

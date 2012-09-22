@@ -14,7 +14,7 @@
 		
 		var thatRet = that;
 		
-		that.selectedTabIndex = -1;
+		that.selectedTabIndex = $("#tab_index").val();
 		
 		var tabNames = [];
 		
@@ -98,33 +98,7 @@
 					$(this).find('.ribbon-normal').addClass('ribbon-disabled');
 					$(this).find('.ribbon-normal').addClass('ribbon-implicit-disabled');
 				}
-				
-				// $(this).tooltip({
-					// bodyHandler: function () {
-						// if (!$(this).isEnabled()) { 
-							// $('#tooltip').css('visibility', 'hidden');
-							// return '';
-						// }
-// 						
-						// var tor = '';
-// 
-						// if (jQuery(this).children('.button-help').size() > 0)
-							// tor = (jQuery(this).children('.button-help').html());
-						// else
-							// tor = '';
-// 
-						// if (tor == '') {
-							// $('#tooltip').css('visibility', 'hidden');
-							// return '';
-						// }
-// 
-						// $('#tooltip').css('visibility', 'visible');
-// 
-						// return tor;
-					// },
-					// left: 0,
-					// extraClass: 'ribbon-tooltip'
-				// });
+
 			});
 			
 			ribObj.find('.ribbon-section').each(function(index) {
@@ -189,21 +163,6 @@
 	
 		$.fn.ribbon = that;
 		
-		// $("a[rel]").overlay({
-//  
-        // effect: 'apple',
-        // speed: 0 ,
-//  
-        // onBeforeLoad: function() {
-//  
-            // // grab wrapper element inside content
-            // var wrap = this.getOverlay().find(".contentWrap");
-//  
-            // // load the page specified in the trigger
-            // wrap.load(this.getTrigger().attr("href"));
-        // }
-//  
-    // });
     
     	$("#commandmap").overlay({
     			// custom top position

@@ -54,6 +54,7 @@
 					<th>Image</th>
 					<th>Time (ms)</th>
 					<th>Errors</th>
+					<th>Parent Switch</th>
 				</tr>
 
 				<% @ribbon.each do |r| %>
@@ -63,6 +64,7 @@
 						<td><img src='/assets/normal/<%= r.button.img %>' /></td>
 						<td><%= r.time %></td>
 						<td><%= r.bad_clicks %></td>
+						<td><%= r.parent_switch %></td>
 					</tr>
 				<% end %>
 			</table>
