@@ -165,20 +165,14 @@
 		
     
     	$("#commandmap").overlay({
-    			// custom top position
-		    top: 260,
-		 
+    		// custom top position
+		    top: 50,
+		 	left:0,
 		    // some mask tweaks suitable for facebox-looking dialogs
 		    mask: {
-		 
-		    // you might also consider a "transparent" color for the mask
-		    color: '#fff',
-		 
-		    // load mask a little faster
-		    loadSpeed: 200,
-		 
 		    // very transparent
-		    opacity: 0.5
+		    loadspeed:200,
+		    opacity: 0.0
 		    },
 		 
 		 

@@ -1,5 +1,8 @@
 <%= render 'collect_data' %>
 
+	<div id="target_instructions">
+	</div>
+	
 <% if !@ribbon %>
 	<div id="commandmap">
 		<%= render 'commandmaps'%>
@@ -24,9 +27,6 @@
 
 </div>
 <div class="page">
-
-	<div id="target_icon">
-	</div>
 	<br />
 	<% if @ribbon %>
 		 
@@ -40,6 +40,9 @@
 	<% if flash[:notice] %>
 	    <div id="notice" class="alert alert-error"><%= flash[:notice] %></div>
 	<% end %>
+	
+	<div id="target_icon">
+	</div>
 
 
 	<br />

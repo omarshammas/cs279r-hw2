@@ -6,13 +6,15 @@
 	    	var errors;
 
 	    	//once the page has loaded present the user with the button to begin.
-	    	$('#target_icon').empty();
+	    	$('#target_instructions').empty();
+	    	$('#target_instructions').append("Your instructions will appear here");
 	    	$('#target_icon').append('<button id="target_icon_btn">Show me my next task</button>');
 
 
 	    	$('#target_icon_btn').click(function () {
 	    		$('#target_icon').empty();
-	    		$('#target_icon').append('You are looking for <img src="/assets/normal/<%= @button.img %>"" /> - <%= @button.name %>');
+	    		$('#target_instructions').empty();
+	    		$('#target_instructions').append('You are looking for <img src="/assets/normal/<%= @button.img %>"" /> - <%= @button.name %>');
 	    		start_time = new Date();
 	    		errors = 0;
 	    	});
