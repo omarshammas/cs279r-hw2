@@ -31,7 +31,7 @@
 			function keydown(e) {
 				if (!e)
 					e = event;
-				if (e.keyCode == 17){
+				if (e.keyCode == 18){
 					$("#commandmap").overlay().load();
 				}
 			}
@@ -39,7 +39,7 @@
 			function keyup(e){
 				if(!e)
 					e = event;
-				if($("#commandmap").overlay().isOpened() && e.keyCode == 17){
+				if($("#commandmap").overlay().isOpened() && e.keyCode == 18 ){
 					$("#commandmap").overlay().close();
 				}
 			}
