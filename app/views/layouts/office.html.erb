@@ -17,26 +17,34 @@
 			if (document.addEventListener)
     		{
        			document.addEventListener("keydown",keydown,false);
+       			document.addEventListener("keyup",keyup,false);
      		}
      		else if (document.attachEvent){
-     			document.attachEvent("onkeydown"
-					,keydown)
-					}
-					else {
-						document.onkeydown = keydown
-					}
-					function keydown(e) {
-						if (!e)
-							e = event;
-						if (!e.ctrlKey)
-							return;
-						if ($("#commandmap").overlay().isOpened()) {
-							$("#commandmap").overlay().close();
-						} else {
-							$("#commandmap").overlay().load();
-						}
-					}
-					});
+     			document.attachEvent("onkeydown",keydown);
+     			document.attachEvent("onkeyup",keyup);
+			}
+			else {
+				document.onkeydown = keydown;
+				document.onkeyup = keyup;
+			}
+
+			function keydown(e) {
+				if (!e)
+					e = event;
+				if (e.ctrlKey){
+					$("#commandmap").overlay().load();
+				}
+			}
+				
+			function keyup(e){
+				if(!e)
+					e = event;
+				if($("#commandmap").overlay().isOpened() && e.keyCode == 17){
+					$("#commandmap").overlay().close();
+				}
+			}
+
+		});
 	</script>
 
 </head>
