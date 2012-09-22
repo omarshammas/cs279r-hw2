@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120921065255) do
+ActiveRecord::Schema.define(:version => 20120921232424) do
 
   create_table "buttons", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,19 @@ ActiveRecord::Schema.define(:version => 20120921065255) do
     t.datetime "updated_at", :null => false
     t.string   "abr"
     t.string   "img"
+  end
+
+  create_table "nasatlxes", :force => true do |t|
+    t.decimal  "mental"
+    t.decimal  "physical"
+    t.decimal  "temporal"
+    t.decimal  "performance"
+    t.decimal  "effort"
+    t.decimal  "frustration"
+    t.string   "menu"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "sessions", :force => true do |t|
@@ -45,11 +58,8 @@ ActiveRecord::Schema.define(:version => 20120921065255) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "turk_id"
-    t.string   "ip"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.string   "preference"
   end
 
 end

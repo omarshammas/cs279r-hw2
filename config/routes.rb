@@ -2,18 +2,16 @@ CommandMaps::Application.routes.draw do
 
   get "/embed" => "experiment#embed"
   get "/home" => "experiment#home", as: :home
-  post "/begin" => "experiment#begin", as: :begin
 
   get "/instructions_ribbon" => "experiment#instructions_ribbon", as: :instructions_ribbon
   get "/instructions_commandmaps" => "experiment#instructions_commandmaps", as: :instructions_commandmaps
 
-  get "/intermediate" => "experiment#intermediate", as: :intermediate
   get "/commandmaps" => "experiment#commandmaps", as: :commandmaps
   get "/task" => "experiment#task", as: :task
   post "/task_complete" => "experiment#task_complete", as: :task_complete
   
   get "/survey" => "experiment#survey", as: :survey
-  post "/preference" => "experiment#preference", as: :preference
+  post "/nasatlx" => "experiment#nasatlx", as: :nasatlx
   get "/thank_you" => "experiment#thank_you", as: :thank_you
   get "/results" => "experiment#results", as: :results
 
