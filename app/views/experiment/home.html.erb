@@ -16,7 +16,14 @@
 					    <div id="notice" class="alert alert-error"><%= flash[:notice] %></div>
 					<% end %>
 
-					<%= link_to 'Begin', @page, class: 'btn btn-primary' %>		
+					<%= form_for @user, :url => { :action => 'begin' } do |f| %>
+						<%= f.text_field :age, placeholder: 'Age: 19, 43', style: 'width:100px;'%>
+						<%= f.text_field :gender, placeholder: 'Gender: Male or Female' %>
+						<%= f.text_field :input_device, placeholder: 'Input Device: Trackpad, Mouse, Other', style: 'width:350px;' %>
+						
+
+						<%= submit_tag 'Begin', class: 'btn btn-primary'  %>
+					<% end %>
 				</div>
 			</div>
 		</div>

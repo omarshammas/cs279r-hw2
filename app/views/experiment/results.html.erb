@@ -5,6 +5,10 @@
 		<div class='span8 offset1'>
 			<h1>User <%= @user.id %> Results</h1>
 
+			Age: <%= @user.age %> <br />
+			Gender: <%= @user.gender %> <br />
+			Input Device: <%= @user.input_device %>
+
 			<h2>Command Maps</h2>
 
 			<% if @cm_nasa %>

@@ -11,18 +11,30 @@ class ExperimentController < ApplicationController
   end
 
   def home
+    @user = User.new
+  end
+
+  def begin
+
     if current_user.nil?
       u = User.create
       
       session[:id] = u.id
       session[:progress] = 0
       session[:roundtwo] = false
-      session[:stage] = 'middle'
-      generate_all_sets      
+      generate_all_sets
     end
 
-    @page = instructions_ribbon_url if session[:ribbon]
-    @page = instructions_commandmaps_url if !session[:ribbon]
+    if params[:user][:age].nil? or params[:user][:age].blank? or 
+      params[:user][:gender].nil? or params[:user][:gender].blank? or 
+      params[:user][:input_device].nil? or params[:user][:input_device].blank?
+        return redirect_to home_url, notice: "You must complete all fields."
+    end
+    current_user.update_attributes params[:user]
+
+    session[:stage] = 'middle'
+    redirect_to instructions_ribbon_url if session[:ribbon]
+    redirect_to instructions_commandmaps_url if !session[:ribbon]
   end
 
   def instructions_ribbon
@@ -91,6 +103,7 @@ class ExperimentController < ApplicationController
     end
 
     #time for the next round, the experiment is not complete
+    session[:stage] = 'middle'
     session[:roundtwo] = true
     session[:progress] = 0
     session[:ribbon] = !session[:ribbon] #toggle so now we start the next round
