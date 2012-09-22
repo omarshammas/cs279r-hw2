@@ -1,9 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessible :ip, :turk_id
+  attr_accessible :age, :gender, :input_device
 
   has_many :tasks, dependent: :destroy
   has_many :nasatlx, dependent: :destroy
 
-  #need to serialize the ip because the request can return a list of ip addresses some times
-  serialize :ip
 end

@@ -58,33 +58,47 @@ class ExperimentController < ApplicationController
     session[:progress] = session[:progress] + 1
 
 
-    return redirect_to survey_url if experiment_complete?
-
-    if next_round?
-      session[:roundtwo] = true
-      session[:progress] = 0
-      session[:ribbon] = !session[:ribbon] #toggle so now we start the next round
-      if session[:ribbon] 
-        return redirect_to instructions_ribbon_url
-      else
-        return redirect_to instructions_commandmaps_url        
-      end
-    end
+    return redirect_to survey_url if next_round? or experiment_complete?
 
     redirect_to task_url, notice: "Previous Task - Time to complete #{params[:time]} ms with #{params[:errors]} errors."
   end
 
   def survey
     session[:stage] = 'survey'
+
+    @questions = {}
+    @questions['mental'] = 'How mentally demanding was the task?'
+    @questions['physical'] = 'How physically demanding was the task?'
+    @questions['temporal'] = 'How hurried or rushed was the pace of the task?'
+    @questions['performance'] = 'How successful were you in accomplishing what you were asked to do?'
+    @questions['effort'] = 'How hard did you have to work to accomplish your level of performance?'
+    @questions['frustration'] = 'How insecure, discouraged, irritated, stressed and annoyed were you?'
+
+    @nasatlx = Nasatlx.new
   end
 
-  def preference
-    if params[:preference].nil? or params[:preference].blank?
-      return redirect_to survey_url, notice: "You have to select either command maps or ribbons. It cannot be left blank."
+  def nasatlx
+
+    #store nasatlx for the menu
+    @nasatlx = Nasatlx.new params[:nasatlx]
+    @nasatlx.user_id = current_user.id
+    @nasatlx.menu = get_menu
+    @nasatlx.save
+
+    if experiment_complete?
+      session[:stage] = 'thank_you'
+      return redirect_to thank_you_url
     end
-    current_user.update_attribute :preference, params[:preference]
-    session[:stage] = 'thank_you'
-    redirect_to thank_you_url
+
+    #time for the next round, the experiment is not complete
+    session[:roundtwo] = true
+    session[:progress] = 0
+    session[:ribbon] = !session[:ribbon] #toggle so now we start the next round
+    if session[:ribbon] 
+      return redirect_to instructions_ribbon_url
+    else
+      return redirect_to instructions_commandmaps_url        
+    end    
   end
 
   def thank_you
@@ -92,7 +106,10 @@ class ExperimentController < ApplicationController
 
   def results
     @user = current_user
-    @tasks = Task.where(user_id: current_user.id).order('menu asc, block asc, position asc ')
+    @ribbon = @user.tasks.where(menu: 'ribbon').order('block asc, position asc ')
+    @ribbon_nasa = @user.nasatlx.where(menu: 'ribbon').first
+    @cm = @user.tasks.where(user_id: current_user.id, menu: 'command maps').order('block asc, position asc ')
+    @cm_nasa = @user.nasatlx.where(menu: 'command maps').first
   end
 
 private

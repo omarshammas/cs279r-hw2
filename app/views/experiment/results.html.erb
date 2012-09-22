@@ -4,10 +4,18 @@
 
 		<div class='span8 offset1'>
 			<h1>User <%= @user.id %> Results</h1>
-			
+
+			<h2>Command Maps</h2>
+
+			<% if @cm_nasa %>
+				Mental: <%= @cm_nasa.mental %>, Physical: <%= @cm_nasa.physical %>, Temporal: <%= @cm_nasa.temporal %>, Performance: <%= @cm_nasa.performance %>, Effort: <%= @cm_nasa.effort %>, Frustration: <%= @cm_nasa.frustration %>
+			<% else %>
+				No NASA TLX
+			<% end %>
+			<br /><br />
+
 			<table class="table table-striped">
 				<tr>
-					<th>Menu</th>
 					<th>#</th>
 					<th>Block</th>
 					<th>Image</th>
@@ -15,18 +23,47 @@
 					<th>Errors</th>
 				</tr>
 
-				<% @tasks.each do |t| %>
+				<% @cm.each do |c| %>
 					<tr>
-						<td><%= t.menu %></td>
-						<td><%= t.position %></td>
-						<td><%= t.block %></td>
-						<td><img src='/assets/normal/<%= t.button.img %>' /></td>
-						<td><%= t.time %></td>
-						<td><%= t.bad_clicks %></td>
+						<td><%= c.position %></td>
+						<td><%= c.block %></td>
+						<td><img src='/assets/normal/<%= c.button.img %>' /></td>
+						<td><%= c.time %></td>
+						<td><%= c.bad_clicks %></td>
 					</tr>
 				<% end %>
 			</table>
 
+			<h2>Ribbons</h2>
+
+			<% if @ribbon_nasa %>
+				Mental: <%= @ribbon_nasa.mental %>, Physical: <%= @ribbon_nasa.physical %>, Temporal: <%= @ribbon_nasa.temporal %>, Performance: <%= @ribbon_nasa.performance %>, Effort: <%= @ribbon_nasa.effort %>, Frustration: <%= @ribbon_nasa.frustration %>
+			<% else %>
+				No NASA TLX
+			<% end %>
+			<br /><br />
+			
+			<table class="table table-striped">
+				<tr>
+					<th>#</th>
+					<th>Block</th>
+					<th>Image</th>
+					<th>Time (ms)</th>
+					<th>Errors</th>
+				</tr>
+
+				<% @ribbon.each do |r| %>
+					<tr>
+						<td><%= r.position %></td>
+						<td><%= r.block %></td>
+						<td><img src='/assets/normal/<%= r.button.img %>' /></td>
+						<td><%= r.time %></td>
+						<td><%= r.bad_clicks %></td>
+					</tr>
+				<% end %>
+			</table>
+
+			<br />
 		</div>
 	</div>
 </div>
