@@ -3,9 +3,24 @@ class ExperimentController < ApplicationController
   before_filter :get_user, except: [:embed, :home, :begin]
   
   COMMAND_SET_SIZE = 6
+  
+  FAMILIAR_TASKS_COUNT = 5
+  PERFORMANCE_TASKS_COUNT = 15
+  
   FAMILIAR_TRIALS = 1
   PERFORMANCE_TRIALS = 1
+  
+  @@tasks_1 = ["bold-btn", "align_center-btn", "web_lyt_btn", "outline_btn", "bold-btn", "next-comment-btn", "previous-change-btn", 
+    "next-comment-btn", "align_center-btn", "bold-btn", "previous-change-btn", "next-comment-btn", "bold-btn", "outline_btn", 
+    "align_center-btn", "previous-change-btn", "next-comment-btn", "web_lyt_btn", "outline_btn", "web_lyt_btn"] 
 
+  @@tasks_2 = ["bullet-btn", "macros-btn", "zoom_btn", "italic-btn", "bullet-btn", "italic-btn", "add-change-btn", 
+    "spelling-btn", "zoom_btn", "macros-btn", "zoom_btn", "italic-btn", "macros-btn", "spelling-btn", "add-change-btn", 
+    "zoom_btn", "italic-btn", "bullet-btn", "macros-btn", "zoom_btn"]   
+  
+  # @@icon_set_1 = ['align_center-btn', 'next-comment-btn', 'previous-change-btn','bold-btn','web_lyt_btn','border-btn']
+  # @@icon_set_2 = ['italic-btn','spelling-btn','add-change-btn','zoom_btn','bullet-btn','orientation-btn',]
+  
   def embed
     @page = get_page
   end
@@ -18,7 +33,6 @@ class ExperimentController < ApplicationController
 
     if current_user.nil?
       u = User.create
-      
       session[:id] = u.id
       session[:progress] = 0
       session[:roundtwo] = false
@@ -32,16 +46,25 @@ class ExperimentController < ApplicationController
         return redirect_to home_url, notice: "You must complete all fields."
     end
     current_user.update_attributes params[:user]
-
+    initial_interface = ['ribbon','commandmap'].sample
+    session[:ribbon] = initial_interface == 'ribbon' ? true:false
+    current_user.update_attributes :initial_interface => initial_interface
+    
     session[:stage] = 'middle'
-    redirect_to instructions_ribbon_url if session[:ribbon]
-    redirect_to instructions_commandmaps_url if !session[:ribbon]
+    if(session[:ribbon])
+      redirect_to instructions_ribbon_url
+    else
+      redirect_to instructions_commandmaps_url
+    end
+
   end
 
   def instructions_ribbon
+    session[:tab_index] = 0
   end
 
   def instructions_commandmaps
+    session[:tab_index] = 0
   end
 
   def task
@@ -144,48 +167,42 @@ private
   end
 
   def generate_all_sets
-    #generate the command sets for familiarization and performance sections   
-    session[:ribbon] = true   #TODO for now sets ribbons first
-
-    #creates ribbon set
-    set = generate_command_set
-    familiar = generate_familiarization_set(set).map! { |c| c.id }
-    performance = generate_performance_set(set).map! { |c| c.id }
-  
-    session[:r_commandset] = set.map { |s| s.id  }
-    session[:r_commands] = familiar + performance
-
-    #creates commandmap set
-    set = generate_command_set
-    familiar = generate_familiarization_set(set).map! { |c| c.id }
-    performance = generate_performance_set(set).map! { |c| c.id }
-  
-    session[:cm_commandset] = set.map { |s| s.id  }
-    session[:cm_commands] = familiar + performance
+    commands_array = [];
+    task_set_array = [@@tasks_1,@@tasks_2].shuffle
+    task_set_array.each do |task_array|
+      commands = []
+      task_array.each do |button_abr|
+        commands.append(Button.find_by_abr(button_abr))
+      end
+      commands_array.append(commands)
+    end
+    ribbon_commands = [];
+    session[:r_commands] = commands_array[0]
+    session[:cm_commands] = commands_array[1]
   end
 
   #Generates a set of commands in different parents
-  def generate_command_set
-    commands = Button.home.sample 3
-    
-    all_parents = ['review', 'insert', 'view', 'layout']
-    two_parents = all_parents.sample 2
-    commands += Button.send(two_parents.first).sample 2
-    commands += Button.send(two_parents.first).sample 1
-  end
-
-  def generate_familiarization_set commands
-    set = commands * FAMILIAR_TRIALS
-    set.shuffle
-  end
-
-  def generate_performance_set commands
-    begin
-      set = commands * PERFORMANCE_TRIALS
-      set.shuffle!
-    end #while !fifty_percent_switching?(set) #TODO
-    set
-  end
+  # def generate_command_set
+    # commands = Button.home.sample 3
+#     
+    # all_parents = ['review', 'insert', 'view', 'layout']
+    # two_parents = all_parents.sample 2
+    # commands += Button.send(two_parents.first).sample 2
+    # commands += Button.send(two_parents.first).sample 1
+  # end
+# 
+  # def generate_familiarization_set commands
+    # set = commands * FAMILIAR_TRIALS
+    # set.shuffle
+  # end
+# 
+  # def generate_performance_set commands
+    # begin
+      # set = commands * PERFORMANCE_TRIALS
+      # set.shuffle!
+    # end #while !fifty_percent_switching?(set) #TODO
+    # set
+  # end
 
   def fifty_percent_switching? set 
     switches = 0.0;
@@ -197,7 +214,7 @@ private
   end
 
   def get_block n
-    return "familiarization" if n <= (COMMAND_SET_SIZE*FAMILIAR_TRIALS)-1
+    return "familiarization" if n <= (FAMILIAR_TASKS_COUNT)
     "performance"
   end
 
@@ -207,7 +224,7 @@ private
   end
 
   def block_size
-    COMMAND_SET_SIZE*(FAMILIAR_TRIALS+PERFORMANCE_TRIALS)
+    FAMILIAR_TASKS_COUNT+PERFORMANCE_TASKS_COUNT
   end
 
   def get_page

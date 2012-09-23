@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923191713) do
+ActiveRecord::Schema.define(:version => 20120923224649) do
 
   create_table "buttons", :force => true do |t|
     t.string   "name"
@@ -59,11 +59,12 @@ ActiveRecord::Schema.define(:version => 20120923191713) do
   end
 
   create_table "users", :force => true do |t|
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "age"
     t.string   "gender"
     t.string   "input_device"
+    t.string   "initial_interface"
   end
 
 end
