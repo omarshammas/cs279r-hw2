@@ -12,7 +12,80 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			$('#ribbon').ribbon();
-					
+			var images = new Array()
+			function preload() {
+				for (i = 0; i < preload.arguments.length; i++) {
+					images[i] = new Image()
+					images[i].src = preload.arguments[i]
+				}
+			}
+			preload(
+				"assets/normal/align_left.png",
+				"assets/normal/character_bold_small.png",
+				"assets/normal/character_italic_small.png",
+				"assets/normal/character_strikethrough_small.png",
+				"assets/normal/colors.png",
+				"assets/normal/column_two.png",
+				"assets/normal/cover_page.png",
+				"assets/normal/document_footer.png",
+				"assets/normal/document_header.png",
+				"assets/normal/font_select.png",
+				"assets/normal/font_size_select.png",
+				"assets/normal/insert_chart.png",
+				"assets/normal/insert_clipart.png",
+				"assets/normal/insert_picture.png",
+				"assets/normal/insert_shapes.png",
+				"assets/normal/list_bullets.png",
+				"assets/normal/list_multilevel.png",
+				"assets/normal/list_numbers.png",
+				"assets/normal/macros.png",
+				"assets/normal/margins.png",
+				"assets/normal/orientation.png",
+				"assets/normal/page_borders.png",
+				"assets/normal/page_break.png",
+				"assets/normal/page_color.png",
+				"assets/normal/page_number.png",
+				"assets/normal/page_size.png",
+				"assets/normal/page-add.png",
+				"assets/normal/paragraph_align_center.png",
+				"assets/normal/paragraph_align_left.png",
+				"assets/normal/paragraph_align_right.png",
+				"assets/normal/picture_rotate_right.png",
+				"assets/normal/review_comment-add.png",
+				"assets/normal/review_comment-delete.png",
+				"assets/normal/review_comment-next.png",
+				"assets/normal/review_comment-previous.png",
+				"assets/normal/review_track_changes-add.png",
+				"assets/normal/review_track_changes-check.png",
+				"assets/normal/review_track_changes-delete.png",
+				"assets/normal/review_track_changes-next.png",
+				"assets/normal/review_track_changes-previous.png",
+				"assets/normal/spelling.png",
+				"assets/normal/styles.png",
+				"assets/normal/table-add.png",
+				"assets/normal/text_box.png",
+				"assets/normal/text_wrapping.png",
+				"assets/normal/themes.png",
+				"assets/normal/thesaurus.png",
+				"assets/normal/translate.png",
+				"assets/normal/view_draft.png",
+				"assets/normal/view_full_screen_reading.png",
+				"assets/normal/view_outline.png",
+				"assets/normal/translate.png",
+				"assets/normal/view_draft.png",
+				"assets/normal/view_full_screen_reading.png",
+				"assets/normal/view_outline.png",
+				"assets/normal/view_page_100percent.png",
+				"assets/normal/view_page_one.png",
+				"assets/normal/view_page_two.png",
+				"assets/normal/view_page_width.png",
+				"assets/normal/view_print_layout.png",
+				"assets/normal/view_web_layout.png",
+				"assets/normal/view_zoom.png",
+				"assets/normal/watermark.png",
+				"assets/normal/wordart.png"
+
+			)
 			
 			if (document.addEventListener)
     		{
