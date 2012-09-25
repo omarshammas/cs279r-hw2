@@ -9,14 +9,15 @@ class ExperimentController < ApplicationController
   
   FAMILIAR_TRIALS = 1
   PERFORMANCE_TRIALS = 1
-  
-  @@tasks_1 = ["bold-btn", "align_center-btn", "web_lyt_btn", "outline_btn", "bold-btn", "next-comment-btn", "previous-change-btn", 
-    "next-comment-btn", "align_center-btn", "bold-btn", "previous-change-btn", "next-comment-btn", "bold-btn", "outline_btn", 
-    "align_center-btn", "previous-change-btn", "next-comment-btn", "web_lyt_btn", "outline_btn", "web_lyt_btn"] 
+  # buttons1 = ["bold-btn", "align_center-btn", "bullet-btn", "web_lyt_btn", "outline_btn", "next-comment-btn"]
+  # ids1 = [3, 7, 11, 20, 51, 52]
+  # parents1 = ["home", "home", "home", "view", "view", "review"]
+  @@tasks_1 = [3, 7, 52, 3, 51, 20, 3, 11, 7, 11, 20, 3, 7, 51, 51, 11, 11, 52, 52, 7, 3, 20, 20, 52, 52, 51, 20, 11, 51, 7, 11, 52, 3, 7, 52, 20, 52, 11, 3, 52, 20, 20, 20, 52, 7, 11, 51, 20, 52, 51, 52, 51, 20, 51, 20, 52, 11, 3, 7, 11, 20, 11, 7, 52, 3, 20, 7, 52, 11, 20, 51, 52, 51, 7, 7, 11, 3, 3, 51, 52, 51, 51, 52, 20, 3, 11, 11, 11, 7, 3, 3, 3, 7, 3, 51, 3, 52, 7, 20, 20, 51, 52, 20, 3, 11, 20, 51, 51, 7, 51, 51, 3, 11, 7, 11, 3, 7, 7, 11, 7]
 
-  @@tasks_2 = ["bullet-btn", "macros-btn", "zoom_btn", "italic-btn", "bullet-btn", "italic-btn", "add-change-btn", 
-    "spelling-btn", "zoom_btn", "macros-btn", "zoom_btn", "italic-btn", "macros-btn", "spelling-btn", "add-change-btn", 
-    "zoom_btn", "italic-btn", "bullet-btn", "macros-btn", "zoom_btn"]   
+  # buttons2 = ["italic-btn", "align_right-btn", "number_list-btn", "table_btn", "pic_btn", "color_btn"]
+  # ids2 = [4, 12, 8, 28, 29, 40] 
+  # parents2 = ["home", "home", "home", "insert", "insert", "layout"]
+  @@tasks_2 = [12, 8, 29, 12, 28, 40, 12, 4, 8, 4, 40, 12, 8, 28, 28, 4, 4, 29, 29, 8, 12, 40, 40, 29, 29, 28, 40, 4, 28, 8, 4, 29, 12, 8, 29, 40, 29, 4, 12, 29, 40, 40, 40, 29, 8, 4, 28, 40, 29, 28, 29, 28, 40, 28, 40, 29, 4, 12, 8, 4, 40, 4, 8, 29, 12, 40, 8, 29, 4, 40, 28, 29, 28, 8, 8, 4, 12, 12, 28, 29, 28, 28, 29, 40, 12, 4, 4, 4, 8, 12, 12, 12, 8, 12, 28, 12, 29, 8, 40, 40, 28, 29, 40, 12, 4, 40, 28, 28, 8, 28, 28, 12, 4, 8, 4, 12, 8, 8, 4, 8]
   
   # @@icon_set_1 = ['align_center-btn', 'next-comment-btn', 'previous-change-btn','bold-btn','web_lyt_btn','border-btn']
   # @@icon_set_2 = ['italic-btn','spelling-btn','add-change-btn','zoom_btn','bullet-btn','orientation-btn',]
@@ -167,18 +168,9 @@ private
   end
 
   def generate_all_sets
-    commands_array = [];
     task_set_array = [@@tasks_1,@@tasks_2].shuffle
-    task_set_array.each do |task_array|
-      commands = []
-      task_array.each do |button_abr|
-        commands.append(Button.find_by_abr(button_abr))
-      end
-      commands_array.append(commands)
-    end
-    ribbon_commands = [];
-    session[:r_commands] = commands_array[0]
-    session[:cm_commands] = commands_array[1]
+    session[:r_commands] = task_set_array[0]
+    session[:cm_commands] = task_set_array[1]
   end
 
   #Generates a set of commands in different parents
