@@ -206,28 +206,6 @@ private
     session[:cm_commands] = task_set_array[1]
   end
 
-  #Generates a set of commands in different parents
-  # def generate_command_set
-    # commands = Button.home.sample 3
-#     
-    # all_parents = ['review', 'insert', 'view', 'layout']
-    # two_parents = all_parents.sample 2
-    # commands += Button.send(two_parents.first).sample 2
-    # commands += Button.send(two_parents.first).sample 1
-  # end
-# 
-  # def generate_familiarization_set commands
-    # set = commands * FAMILIAR_TRIALS
-    # set.shuffle
-  # end
-# 
-  # def generate_performance_set commands
-    # begin
-      # set = commands * PERFORMANCE_TRIALS
-      # set.shuffle!
-    # end #while !fifty_percent_switching?(set) #TODO
-    # set
-  # end
 
   def fifty_percent_switching? set 
     switches = 0.0;
