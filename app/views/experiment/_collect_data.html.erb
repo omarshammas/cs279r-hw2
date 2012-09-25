@@ -28,6 +28,8 @@
 			});
 
 			function record_click (div){
+				console.log('recording click');
+
 		    	//Does that title of the button pressed match the target button
 		        var label = $(div).attr('id')
 		        if (label && label == target) {
@@ -39,7 +41,7 @@
 		    		$('#task_time').val(time);
 		    		$('#task_errors').val(errors);
 		    		$('#task_form').submit();
-
+		    		alert('submitted')
 		    	} else {
 		    		errors += 1;
 
@@ -48,11 +50,38 @@
 		    		soundHandle.play();
 		    	}
 			}
+
+			$("#task_form")
+	     	  .bind('ajax:before', function(data, status, xhr) { before_send(data, status, xhr); })
+		      .bind('ajax:success', function(data, status, xhr) { next_task(data, status, xhr); })
+		      .bind('ajax:error', function(xhr, status, error) { failed_task(data, status, xhr); })
+		
+
+		    function before_send(data, status, xhr){
+		    	alert('before send');
+		    }
+
+			function next_task(data, status, xhr){
+				alert('success');
+				console.log(data);
+				console.log('=\n');
+				console.log(status);
+				console.log('=\n');
+				console.log(xhr);
+				console.log('=\n');
+			}
+
+			function failed_task(data, status, xhr){
+				alert('oh no something went wrong');
+			}
 	    });
 	</script>
 
+
+
 	<audio id="soundHandle" src="http://www.soundjay.com/button/sounds/beep-2.mp3" style="display: none;"></audio>
-	<%= form_tag('/task_complete', method: 'post', id: :task_form) do %>
+
+	<%= form_tag('/task_complete_ajax', method: 'post', id: :task_form, remote: true) do %>
 		<%= hidden_field_tag :errors, 0, id: :task_errors %>
 		<%= hidden_field_tag :time, 0, id: :task_time %>
 	<% end %>

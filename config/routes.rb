@@ -10,6 +10,7 @@ CommandMaps::Application.routes.draw do
   get "/commandmaps" => "experiment#commandmaps", as: :commandmaps
   get "/task" => "experiment#task", as: :task
   post "/task_complete" => "experiment#task_complete", as: :task_complete
+  post "/task_complete_ajax" => "experiment#task_complete_ajax", as: :task_complete_ajax
   
   get "/survey" => "experiment#survey", as: :survey
   post "/nasatlx" => "experiment#nasatlx", as: :nasatlx
