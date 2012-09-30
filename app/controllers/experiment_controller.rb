@@ -47,9 +47,16 @@ class ExperimentController < ApplicationController
         return redirect_to home_url, notice: "You must complete all fields."
     end
     current_user.update_attributes params[:user]
-    initial_interface = ['ribbon','commandmap'].sample
-    session[:ribbon] = initial_interface == 'ribbon' ? true:false
-    current_user.update_attributes :initial_interface => initial_interface
+    
+    total_count = User.where('initial_interface is not null').count
+    ribbon_count = User.where(:initial_interface => 'ribbon').count
+    if ribbon_count > (total_count/2.0).floor
+      session[:ribbon] = false
+      current_user.update_attributes :initial_interface => 'commandmap'
+    else
+      session[:ribbon] = true
+      current_user.update_attributes :initial_interface => 'ribbon'
+    end
     
     session[:stage] = 'middle'
     if(session[:ribbon])
@@ -202,28 +209,6 @@ private
     session[:cm_commands] = task_set_array[1]
   end
 
-  #Generates a set of commands in different parents
-  # def generate_command_set
-    # commands = Button.home.sample 3
-#     
-    # all_parents = ['review', 'insert', 'view', 'layout']
-    # two_parents = all_parents.sample 2
-    # commands += Button.send(two_parents.first).sample 2
-    # commands += Button.send(two_parents.first).sample 1
-  # end
-# 
-  # def generate_familiarization_set commands
-    # set = commands * FAMILIAR_TRIALS
-    # set.shuffle
-  # end
-# 
-  # def generate_performance_set commands
-    # begin
-      # set = commands * PERFORMANCE_TRIALS
-      # set.shuffle!
-    # end #while !fifty_percent_switching?(set) #TODO
-    # set
-  # end
 
   def fifty_percent_switching? set 
     switches = 0.0;
