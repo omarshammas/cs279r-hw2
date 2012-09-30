@@ -85,7 +85,7 @@
 	<audio id="soundHandle" src="http://www.soundjay.com/button/sounds/beep-2.mp3" style="display: none;"></audio>
 
 
-	<%= form_for @task, :url => { :action => 'task_complete_ajax' }, remote: true do |f| %>
+	<%= form_for @task, :url => { :action => 'task_complete' }, remote: true do |f| %>
 		<%= f.hidden_field :errors,value: 0, id: :task_errors %>
 		<%= f.hidden_field :time, value: 0, id: :task_time %>
 	<% end %>
