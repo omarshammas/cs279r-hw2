@@ -47,9 +47,16 @@ class ExperimentController < ApplicationController
         return redirect_to home_url, notice: "You must complete all fields."
     end
     current_user.update_attributes params[:user]
-    initial_interface = ['ribbon','commandmap'].sample
-    session[:ribbon] = initial_interface == 'ribbon' ? true:false
-    current_user.update_attributes :initial_interface => initial_interface
+    
+    total_count = User.where('initial_interface is not null').count
+    ribbon_count = User.where(:initial_interface => 'ribbon').count
+    if ribbon_count > (total_count/2.0).floor
+      session[:ribbon] = false
+      current_user.update_attributes :initial_interface => 'commandmap'
+    else
+      session[:ribbon] = true
+      current_user.update_attributes :initial_interface => 'ribbon'
+    end
     
     session[:stage] = 'middle'
     if(session[:ribbon])
