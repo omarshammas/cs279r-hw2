@@ -75,6 +75,7 @@ class ExperimentController < ApplicationController
     @button = get_button
     @tab_index = session[:tab_index]
     @remaining = block_size
+    @task = Task.new
 
     render layout: "office"
   end
@@ -85,6 +86,10 @@ class ExperimentController < ApplicationController
   end
 
   def task_complete_ajax
+    p "============================="
+    p "submitted"
+    p "============================="
+
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
     button = get_button()
@@ -102,6 +107,7 @@ class ExperimentController < ApplicationController
     @tab_index = session[:tab_index]
     @remaining = block_size
 
+    return render json: { status: 'next', button: @button, tab_index: session[:tab_index] }
     respond_to do |format|
         format.html { redirect_to :action => "task" }
         format.js { render status: 'next', button: @button, tab_index: session[:tab_index] }

@@ -2,6 +2,7 @@
 	    $(document).ready(function(){
 
 	    	var target = '<%= @button.abr %>';
+	    	var image = '<%= @button.img %>'
 	    	var start_time;
 	    	var errors;
 
@@ -14,7 +15,7 @@
 	    	$('#target_icon_btn').click(function () {
 	    		$('#target_icon').empty();
 	    		$('#target_instructions').empty();
-	    		$('#target_instructions').append('You are looking for <img src="/assets/normal/<%= @button.img %>"" /> - <%= @button.name %>');
+	    		$('#target_instructions').append('You are looking for <img src="/assets/normal/' + image +'" /> - <%= @button.name %>');
 	    		start_time = new Date();
 	    		errors = 0;
 	    	});
@@ -40,8 +41,7 @@
 		    		//update the form, then submit
 		    		$('#task_time').val(time);
 		    		$('#task_errors').val(errors);
-		    		$('#task_form').submit();
-		    		alert('submitted')
+		    		$('#new_task').submit();
 		    	} else {
 		    		errors += 1;
 
@@ -51,7 +51,7 @@
 		    	}
 			}
 
-			$("#task_form")
+			$("#new_task")
 	     	  .bind('ajax:before', function(data, status, xhr) { before_send(data, status, xhr); })
 		      .bind('ajax:success', function(data, status, xhr) { next_task(data, status, xhr); })
 		      .bind('ajax:error', function(xhr, status, error) { failed_task(data, status, xhr); })
@@ -63,12 +63,37 @@
 
 			function next_task(data, status, xhr){
 				alert('success');
+
 				console.log(data);
 				console.log('=\n');
 				console.log(status);
+				console.log('Button=\n');
+				console.log(status['button']);
+				if ('abr' in status['button']){
+					console.log('abr=\n');
+					console.log(status['button']['abr']);
+				}
 				console.log('=\n');
 				console.log(xhr);
 				console.log('=\n');
+
+				if ('complete' in status ){
+					window.location.href = "/task";
+				}
+
+	    		//
+	    		target = '<%= @button.abr %>';
+	    		image = '<%= @button.img %>';
+
+	    		//once the page has loaded present the user with the button to begin.
+		    	$('#target_instructions').empty();
+		    	$('#target_instructions').append("Your instructions will appear here");
+		    	$('#target_icon').append('<button id="target_icon_btn">Show me my next task</button>');
+
+		    	//update the form, then submit
+	    		$('#task_time').val(0);
+	    		$('#task_errors').val(0);
+
 			}
 
 			function failed_task(data, status, xhr){
@@ -81,7 +106,9 @@
 
 	<audio id="soundHandle" src="http://www.soundjay.com/button/sounds/beep-2.mp3" style="display: none;"></audio>
 
-	<%= form_tag('/task_complete_ajax', method: 'post', id: :task_form, remote: true) do %>
-		<%= hidden_field_tag :errors, 0, id: :task_errors %>
-		<%= hidden_field_tag :time, 0, id: :task_time %>
+
+	<%= form_for @task, :url => { :action => 'task_complete_ajax' }, remote: true do |f| %>
+		<%= f.hidden_field :errors,value: 0, id: :task_errors %>
+		<%= f.hidden_field :time, value: 0, id: :task_time %>
 	<% end %>
+
