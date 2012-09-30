@@ -13,6 +13,7 @@ group :test do
 end
 
 group :production do
+  gem 'taps'
   gem 'pg'
 end
 
@@ -31,6 +32,7 @@ end
 
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
+gem 'browser'
 
 
 # To use ActiveModel has_secure_password

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923224649) do
+ActiveRecord::Schema.define(:version => 20120930034120) do
 
   create_table "buttons", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(:version => 20120923224649) do
     t.string   "gender"
     t.string   "input_device"
     t.string   "initial_interface"
+    t.string   "browser"
+    t.string   "code"
   end
 
 end
