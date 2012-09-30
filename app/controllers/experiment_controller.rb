@@ -4,8 +4,8 @@ class ExperimentController < ApplicationController
   
   COMMAND_SET_SIZE = 6
   
-  FAMILIAR_TASKS_COUNT = 5
-  PERFORMANCE_TASKS_COUNT = 15
+  FAMILIAR_TASKS_COUNT = 1
+  PERFORMANCE_TASKS_COUNT = 1
   
   FAMILIAR_TRIALS = 1
   PERFORMANCE_TRIALS = 1
@@ -33,7 +33,7 @@ class ExperimentController < ApplicationController
   def begin
 
     if current_user.nil?
-      u = User.create
+      u = User.create code: SecureRandom.base64(10), browser: browser.to_s
       session[:id] = u.id
       session[:progress] = 0
       session[:roundtwo] = false
@@ -144,6 +144,7 @@ class ExperimentController < ApplicationController
   end
 
   def thank_you
+    @user = current_user
   end
 
   def results
@@ -216,7 +217,7 @@ private
   end
 
   def block_size
-    FAMILIAR_TASKS_COUNT+PERFORMANCE_TASKS_COUNT
+    COMMAND_SET_SIZE*(FAMILIAR_TASKS_COUNT+PERFORMANCE_TASKS_COUNT)
   end
 
   def get_page
