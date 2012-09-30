@@ -19,7 +19,7 @@
 					<%= form_for @user, :url => { :action => 'begin' } do |f| %>
 						<%= f.text_field :age, placeholder: 'Age: 19, 43', style: 'width:100px;'%>
 						<%= f.text_field :gender, placeholder: 'Gender: Male or Female' %>
-						<%= f.text_field :input_device, placeholder: 'Input Device: Trackpad, Mouse, Other', style: 'width:350px;' %>
+						<%= f.text_field :input_device, placeholder: 'Input Device: Mouse, Trackpad, ...', style: 'width:350px;' %>
 						
 
 						<%= submit_tag 'Begin', class: 'btn btn-primary'  %>

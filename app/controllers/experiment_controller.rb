@@ -7,9 +7,6 @@ class ExperimentController < ApplicationController
   FAMILIAR_TASKS_COUNT = 30
   PERFORMANCE_TASKS_COUNT = 90
 
-  
-  FAMILIAR_TRIALS = 1
-  PERFORMANCE_TRIALS = 1
   # buttons1 = ["bold-btn", "align_center-btn", "bullet-btn", "web_lyt_btn", "outline_btn", "next-comment-btn"]
   # ids1 = [3, 7, 11, 20, 51, 52]
   # parents1 = ["home", "home", "home", "view", "view", "review"]
@@ -34,7 +31,11 @@ class ExperimentController < ApplicationController
   def begin
 
     if current_user.nil?
-      u = User.create code: SecureRandom.base64(10), browser: browser.to_s
+      u = User.new params[:user]
+      u.code = SecureRandom.base64(10)
+      u.browser = browser.to_s
+      u.save
+
       session[:id] = u.id
       session[:progress] = 0
       session[:roundtwo] = false
@@ -105,7 +106,9 @@ class ExperimentController < ApplicationController
     parent_switch = true unless new_tab_index == session[:tab_index]
     session[:tab_index] = tab_hash[button.parent]
     
-    Task.create time: params[:time], menu: get_menu, block: block, button_id: button.id, bad_clicks: params[:errors], position: position, user_id: current_user.id, parent_switch: parent_switch
+
+
+    Task.create time: params[:task][:time], menu: get_menu, block: block, button_id: button.id, bad_clicks: params[:task][:errors], position: position, user_id: current_user.id, parent_switch: parent_switch
     session[:progress] = session[:progress] + 1
 
     @button = get_button session[:progress]
@@ -188,18 +191,8 @@ private
     session[:cm_commands] = task_set_array[1]
   end
 
-
-  def fifty_percent_switching? set 
-    switches = 0.0;
-    for i in 1..(set.count-1)
-      switches += 1 if set[i].parent != set[i-1].parent
-    end
-
-    0.45 <= (switches/set.count) and (switches/set.count) <= 0.55 
-  end
-
   def get_block n
-    return "familiarization" if n <= (FAMILIAR_TASKS_COUNT)
+    return "familiarization" if n < FAMILIAR_TASKS_COUNT
     "performance"
   end
 
@@ -209,7 +202,7 @@ private
   end
 
   def block_size
-    COMMAND_SET_SIZE*(FAMILIAR_TASKS_COUNT+PERFORMANCE_TASKS_COUNT)
+    FAMILIAR_TASKS_COUNT+PERFORMANCE_TASKS_COUNT
   end
 
   def get_page
