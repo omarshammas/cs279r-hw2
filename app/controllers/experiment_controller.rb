@@ -92,7 +92,7 @@ class ExperimentController < ApplicationController
 
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
-    button = get_button()
+    button = get_button
     block = get_block position
     tab_hash = {"home" => 0, "review" => 1, "insert" => 2, "layout" => 3, "view" => 4}
     parent_switch = false
@@ -103,17 +103,13 @@ class ExperimentController < ApplicationController
     Task.create time: params[:time], menu: get_menu, block: block, button_id: button.id, bad_clicks: params[:errors], position: position, user_id: current_user.id, parent_switch: parent_switch
     session[:progress] = session[:progress] + 1
 
-    @button = get_button
+    @button = get_button session[:progress]
     @tab_index = session[:tab_index]
     @remaining = block_size
 
-    return render json: { status: 'next', button: @button, tab_index: session[:tab_index] }
-    respond_to do |format|
-        format.html { redirect_to :action => "task" }
-        format.js { render status: 'next', button: @button, tab_index: session[:tab_index] }
-    end
+    return render json: { status: 'complete', url: survey_url } if next_round? or experiment_complete?
+    return render json: { status: 'next', button: @button }
 
-    #return render json: {status: 'done', redirect: survey_url} if next_round? or experiment_complete?
   end
 
   def task_complete
@@ -270,9 +266,10 @@ private
     !session[:roundtwo] and session[:progress] >= block_size
   end
 
-  def get_button
-    return Button.find session[:r_commands][session[:progress]] if session[:ribbon]
-    Button.find session[:cm_commands][session[:progress]]
+  def get_button progress= session[:progress]
+
+    return Button.find session[:r_commands][progress] if session[:ribbon]
+    Button.find session[:cm_commands][progress]
   end
 
 end

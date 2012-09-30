@@ -7,18 +7,7 @@
 	    	var errors;
 
 	    	//once the page has loaded present the user with the button to begin.
-	    	$('#target_instructions').empty();
-	    	$('#target_instructions').append("Your instructions will appear here");
-	    	$('#target_icon').append('<button id="target_icon_btn">Show me my next task</button>');
-
-
-	    	$('#target_icon_btn').click(function () {
-	    		$('#target_icon').empty();
-	    		$('#target_instructions').empty();
-	    		$('#target_instructions').append('You are looking for <img src="/assets/normal/' + image +'" /> - <%= @button.name %>');
-	    		start_time = new Date();
-	    		errors = 0;
-	    	});
+			display_info();
 
 		    $('.ribbon-button').click(function () {
 		    	record_click(this)
@@ -28,8 +17,24 @@
 		    	record_click(this);
 			});
 
+		    function display_info (){
+		    	$('#target_instructions').empty();
+		    	$('#target_instructions').append("Your instructions will appear here");
+		    	$('#target_icon').append('<button id="target_icon_btn">Show me my next task</button>');
+		    	$('#target_icon_btn').on( "click", function() {
+		    		display_task() });
+		    }
+
+		    function display_task (){
+		    	$('#target_icon').empty();
+	    		$('#target_instructions').empty();
+	    		$('#target_instructions').append('You are looking for <img src="/assets/normal/' + image +'" /> - <%= @button.name %>');
+	    		start_time = new Date();
+	    		errors = 0;
+		    }
+
+
 			function record_click (div){
-				console.log('recording click');
 
 		    	//Does that title of the button pressed match the target button
 		        var label = $(div).attr('id')
@@ -52,52 +57,25 @@
 			}
 
 			$("#new_task")
-	     	  .bind('ajax:before', function(data, status, xhr) { before_send(data, status, xhr); })
 		      .bind('ajax:success', function(data, status, xhr) { next_task(data, status, xhr); })
 		      .bind('ajax:error', function(xhr, status, error) { failed_task(data, status, xhr); })
-		
-
-		    function before_send(data, status, xhr){
-		    	alert('before send');
-		    }
 
 			function next_task(data, status, xhr){
-				alert('success');
 
-				console.log(data);
-				console.log('=\n');
-				console.log(status);
-				console.log('Button=\n');
-				console.log(status['button']);
-				if ('abr' in status['button']){
-					console.log('abr=\n');
-					console.log(status['button']['abr']);
+				if (status['status'] == 'complete' ){
+					window.location.href = status['url'];
 				}
-				console.log('=\n');
-				console.log(xhr);
-				console.log('=\n');
-
-				if ('complete' in status ){
-					window.location.href = "/task";
-				}
-
-	    		//
-	    		target = '<%= @button.abr %>';
-	    		image = '<%= @button.img %>';
 
 	    		//once the page has loaded present the user with the button to begin.
-		    	$('#target_instructions').empty();
-		    	$('#target_instructions').append("Your instructions will appear here");
-		    	$('#target_icon').append('<button id="target_icon_btn">Show me my next task</button>');
+		    	display_info();
 
-		    	//update the form, then submit
-	    		$('#task_time').val(0);
-	    		$('#task_errors').val(0);
-
+	    		target = status['button']['abr'];
+	    		image = status['button']['img'];
+				
 			}
 
 			function failed_task(data, status, xhr){
-				alert('oh no something went wrong');
+				//alert('oh no something went wrong');
 			}
 	    });
 	</script>
