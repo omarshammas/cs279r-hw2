@@ -4,8 +4,8 @@ class ExperimentController < ApplicationController
   
   COMMAND_SET_SIZE = 6
   
-  FAMILIAR_TASKS_COUNT = 30
-  PERFORMANCE_TASKS_COUNT = 90
+  FAMILIAR_TASKS_COUNT = 1
+  PERFORMANCE_TASKS_COUNT = 1
 
   @@tasks_1 = [3, 7, 22, 3, 15, 46, 3, 11, 7, 11, 46, 3, 7, 15, 15, 11, 11, 22, 22, 7, 3, 46, 46, 22, 22, 15, 46, 11, 15, 7, 11, 22, 3, 7, 22, 46, 22, 11, 3, 22, 46, 46, 46, 22, 7, 11, 15, 46, 22, 15, 22, 15, 46, 15, 46, 22, 11, 3, 7, 11, 46, 11, 7, 22, 3, 46, 7, 22, 11, 46, 15, 22, 15, 7, 7, 11, 3, 3, 15, 22, 15, 15, 22, 46, 3, 11, 11, 11, 7, 3, 3, 3, 7, 3, 15, 3, 22, 7, 46, 46, 15, 22, 46, 3, 11, 46, 15, 15, 7, 15, 15, 3, 11, 7, 11, 3, 7, 7, 11, 7]
 
@@ -88,7 +88,7 @@ class ExperimentController < ApplicationController
 
   def task_complete
 
-    return render json: { status: 'complete', url: survey_url } if session[:progress] >= block_size and (next_round? or experiment_complete?)
+    #return render json: { status: 'complete', url: survey_url } if session[:progress] >= block_size and (next_round? or experiment_complete?)
 
     #:block, :button, :errors, :position, :time, :user_id
     position = session[:progress]
@@ -109,7 +109,7 @@ class ExperimentController < ApplicationController
     @tab_index = session[:tab_index]
     @remaining = block_size
 
-    return render json: { status: 'complete', url: survey_url } if next_round? or experiment_complete?
+    return render json: { status: 'complete', url: survey_url } if session[:progress] >= block_size and (next_round? or experiment_complete?)
     return render json: { status: 'next', button: @button }
 
   end
